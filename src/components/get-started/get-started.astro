@@ -1,0 +1,80 @@
+---
+import { Code } from "astro:components";
+
+const before = `.card {
+  color: #f5f5f5;
+  width: 600px;
+  padding: 16px 0;
+}
+@media (max-width: 768px) {
+  .card {
+    padding: 12px 0;
+  }
+}
+.card:hover {
+  background-color: #e0e0e0;
+}`;
+
+const withRulesCode = `@layer components {
+  @scope (.card) to (.slot) {
+    :scope {
+      color: light-dark(oklch(96% 0 0deg), oklch(25% 0 0deg));
+      container: inline-size;
+      padding-block: clamp(1rem, 2cqi, 2rem);
+      
+      &:hover {
+        background-color: oklch(from currentcolor calc(l + 10%) c h);
+      }
+    }
+  }
+}`;
+
+const prompts = `Fetch https://moderncss.ai/llms.txt and use its rules for modern CSS in this new project. Apply them to all CSS you write.
+
+Fetch https://moderncss.ai/llms.txt. Use it to style the BaseUI (successor to Radix) \`Button\` component with modern CSS that matches my site's look and feel.
+
+Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these rules and refactor them to use modern CSS.`;
+---
+
+<section class="get-started">
+  <h2>Get started</h2>
+  <div>
+    <form>
+      <label for="llms-prompt">
+        <a href="/llms">Read the rules</a> or fetch <a href="/llms.txt"
+          >llms.txt</a
+        > with an AI:
+      </label>
+      <prompt-cycler>
+        <copy-clipboard>
+          <textarea id="llms-prompt">{prompts}</textarea>
+        </copy-clipboard>
+      </prompt-cycler>
+    </form>
+    <div>
+      <code-comparison>
+        <div slot="before">
+          <Code
+            code={before}
+            lang="css"
+            themes={{ light: "one-light", dark: "min-dark" }}
+            defaultColor="light-dark()"
+          />
+        </div>
+        <div slot="after">
+          <Code
+            code={withRulesCode}
+            lang="css"
+            themes={{ light: "one-light", dark: "min-dark" }}
+            defaultColor="light-dark()"
+          />
+        </div>
+      </code-comparison>
+      <p>
+        <small>
+          Before & after with GPT-5.3-Codex and Claude Sonnet 4.6.
+        </small>
+      </p>
+    </div>
+  </div>
+</section>

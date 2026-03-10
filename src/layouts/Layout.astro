@@ -1,0 +1,34 @@
+---
+import "../styles.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "ModernCSS.AI",
+  description = "Modern CSS. Regardless of who or what writes it.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="preload"
+      href="/recursive.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,50 @@
+@scope (aside.lint) {
+  :scope {
+    border: var(--line-length) solid var(--color-line);
+    border-radius: var(--length-xs);
+    padding-block: var(--length-2xs);
+    padding-inline: var(--length);
+
+    @media (width > 30em) {
+      display: grid;
+      margin-inline: auto;
+      max-inline-size: 40ch;
+      place-items: center;
+      text-align: center;
+    }
+  }
+
+  h2 {
+    font-size: var(--font-size-l);
+  }
+
+  p {
+    &:first-of-type {
+      margin-block: 0;
+    }
+
+    &:last-of-type {
+      background-color: var(--color-bg-secondary);
+      border-radius: var(--length-2xs);
+      display: grid;
+      font-size: var(--font-size-s);
+      gap: var(--length-2xs) var(--length-s);
+      grid-template-columns: auto 1fr;
+      padding: var(--length-xs);
+      place-items: center;
+
+      svg {
+        block-size: 2lh;
+        fill: var(--color-fg-strong);
+        inline-size: auto;
+      }
+
+      @media (width > 30em) {
+        max-inline-size: 38ch;
+        place-content: space-around;
+        place-items: center;
+        text-align: start;
+      }
+    }
+  }
+}

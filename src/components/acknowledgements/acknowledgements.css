@@ -1,0 +1,9 @@
+@scope (section.acknowledgements) {
+  :scope {
+    @media (width > 30em) {
+      margin-inline: auto;
+      max-inline-size: 60ch;
+      text-align: center;
+    }
+  }
+}

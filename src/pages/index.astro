@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/header/header.astro";
+import Footer from "../components/footer/footer.astro";
+import Hero from "../components/hero/hero.astro";
+import GetStarted from "../components/get-started/get-started.astro";
+import What from "../components/what/what.astro";
+import Why from "../components/why/why.astro";
+import Lint from "../components/lint/lint.astro";
+import Acknowledgements from "../components/acknowledgements/acknowledgements.astro";
+---
+
+<Layout>
+  <Header />
+  <main>
+    <Hero />
+    <GetStarted />
+    <What />
+    <Why />
+    <Lint />
+    <Acknowledgements />
+  </main>
+  <Footer />
+  <script src="../components/code-comparison/code-comparison.js"></script>
+  <script src="../components/copy-clipboard/copy-clipboard.js"></script>
+  <script src="../components/prompt-cycler/prompt-cycler.js"></script>
+</Layout>

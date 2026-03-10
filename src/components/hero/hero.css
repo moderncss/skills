@@ -1,0 +1,11 @@
+@scope (section.hero) {
+  h1 {
+    max-inline-size: 30ch;
+  }
+
+  p {
+    font-size: var(--font-size-xl);
+    font-weight: 300;
+    max-inline-size: 55ch;
+  }
+}

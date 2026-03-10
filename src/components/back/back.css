@@ -1,0 +1,12 @@
+@scope (nav.back) {
+  a {
+    &:any-link {
+      align-items: center;
+      color: var(--color-fg-strong);
+      display: inline flex;
+      font-size: var(--font-size-s);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@scope (copy-clipboard) {
+  span:nth-of-type(1) svg {
+    button:hover & {
+      color: var(--color-accent);
+    }
+  }
+
+  span:nth-of-type(2) svg {
+    color: var(--color-success);
+  }
+}

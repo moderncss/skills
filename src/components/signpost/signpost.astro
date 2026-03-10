@@ -1,0 +1,24 @@
+---
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+
+<p class="signpost">
+  <a href={href}
+    ><span><slot /></span><svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 9h8M9 5l4 4-4 4"></path>
+    </svg></a
+  >
+</p>

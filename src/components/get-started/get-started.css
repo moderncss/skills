@@ -1,0 +1,61 @@
+@scope (section.get-started) {
+  > div {
+    display: grid;
+    gap: var(--length-xl) var(--length-2xl);
+
+    @media (width > 60em) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto 1fr auto auto;
+    }
+  }
+
+  form,
+  div div {
+    @media (width > 60em) {
+      display: grid;
+      gap: 0;
+      grid-row: span 4;
+      grid-template-rows: subgrid;
+    }
+  }
+
+  code-comparison {
+    @media (width > 60em) {
+      grid-row: span 3;
+    }
+  }
+
+  prompt-cycler {
+    @media (width > 60em) {
+      display: grid;
+      grid-row: span 2;
+      grid-template-rows: subgrid;
+    }
+  }
+
+  copy-clipboard {
+    @media (width > 60em) {
+      display: grid;
+      grid-template-rows: subgrid;
+    }
+  }
+
+  p {
+    &:first-of-type {
+      margin-block: 0 var(--length-xs);
+    }
+
+    &:last-of-type {
+      display: grid;
+      margin-block-start: var(--length-xs);
+      padding-inline: var(--length-s);
+      place-items: center;
+    }
+  }
+
+  small {
+    color: var(--color-fg-muted);
+    font-size: var(--font-size-xs);
+    text-align: center;
+  }
+}
