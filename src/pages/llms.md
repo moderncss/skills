@@ -8,7 +8,9 @@ description: "Modern CSS rules for creating robust, responsive and accessible UI
 
 > Modern CSS rules for creating robust, responsive and accessible UIs.
 
-The rules, constraints, and examples in this document are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you choose to use a rule, apply it consistently.
+The rules worked best when you apply them within a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. Most rules use CSS features that are, thanks to [Interop 2024](https://wpt.fyi/interop-2026), [Baseline Widely Available](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility).
+
+The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you choose to use a rule, apply it consistently.
 
 ## Architecture
 
@@ -200,7 +202,7 @@ button {
 
 - **Rule**: Use `container` queries and units (e.g. `cqi`, `cqb`) for responsive layouts.
 - **Constraint**: Avoid fixed units for spacing (e.g. `padding-block: 16px`, `margin-inline: 1rem`) as they create hard edges and seams.
-- **Rationale**: Improves modularity and reusability as components adapt to their container size.
+- **Rationale**: Improves modularity and reusability as components adapt to their container size, and work across all device sizes not just a few.
 - **Example**:
 
 ```css
