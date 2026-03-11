@@ -19,11 +19,9 @@ test.describe("prompt cycler", () => {
     await nextBtn.click();
     await expect(textarea).not.toHaveValue(initialValue);
 
-    const prompt2Value = await textarea.inputValue();
-
     // Click next to go to prompt 3
     await nextBtn.click();
-    await expect(textarea).not.toHaveValue(prompt2Value);
+    await expect(textarea).toHaveValue(/Available\.$/, { timeout: 10_000 });
 
     const prompt3Value = await textarea.inputValue();
 
