@@ -49,8 +49,8 @@ body {
   font-optical-sizing: auto;
   font-size: var(--font-size);
   font-style: normal;
-  font-variant-ligatures: common-ligatures no-discretionary-ligatures
-    no-historical-ligatures contextual;
+  font-variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures
+    contextual;
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variation-settings:
     "slnt" 0,
@@ -247,6 +247,7 @@ textarea {
   min-block-size: calc(4lh + (var(--length-s) * 2));
   padding-block: var(--length-s);
   padding-inline: var(--length);
+  scrollbar-gutter: stable;
 
   &:focus-within {
     border-radius: var(--length-xs);
