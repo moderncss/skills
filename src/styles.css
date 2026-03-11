@@ -11,6 +11,7 @@
 @import url("./components/get-started/get-started.css") layer(components);
 @import url("./components/header/header.css") layer(components);
 @import url("./components/hero/hero.css") layer(components);
+@import url("./components/info-popover/info-popover.css") layer(components);
 @import url("./components/lint/lint.css") layer(components);
 @import url("./components/prompt-cycler/prompt-cycler.css") layer(components);
 @import url("./components/signpost/signpost.css") layer(components);

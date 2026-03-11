@@ -1,0 +1,46 @@
+@scope (div.info-popover) {
+  :scope {
+    inset-block-start: var(--length-xs);
+    inset-inline-end: var(--length-xs);
+    position: absolute;
+    z-index: 5;
+  }
+
+  button {
+    anchor-name: --info-button;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    box-shadow: none;
+    color: var(--color-fg);
+    font-size: var(--font-size);
+
+    &:hover,
+    &:active {
+      background-color: transparent;
+      color: var(--color-fg-strong);
+    }
+  }
+
+  svg {
+    block-size: 1em;
+    inline-size: 1em;
+  }
+
+  dialog {
+    background-color: light-dark(var(--color-bg), var(--color-bg-quaternary));
+    border: var(--line-length) solid var(--color-line);
+    border-radius: var(--length-2xs);
+    box-shadow: var(--shadow-l);
+    color: var(--color-fg);
+    font-size: var(--font-size-xs);
+    margin-block: 0;
+    margin-inline: 0;
+    max-inline-size: 30ch;
+    padding-block: var(--length-xs);
+    padding-inline: var(--length);
+    position-anchor: --info-button;
+    position-area: bottom left;
+    text-align: center;
+  }
+}

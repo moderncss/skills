@@ -1,5 +1,6 @@
 ---
 import { Code } from "astro:components";
+import InfoPopover from "../info-popover/info-popover.astro";
 
 const before = `.card {
   color: #f5f5f5;
@@ -70,6 +71,7 @@ Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these
           />
         </div>
       </code-comparison>
+      <InfoPopover />
       <p>
         <small>
           Before & after with GPT-5.3-Codex and Claude Sonnet 4.6.

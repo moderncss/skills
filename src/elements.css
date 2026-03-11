@@ -49,8 +49,8 @@ body {
   font-optical-sizing: auto;
   font-size: var(--font-size);
   font-style: normal;
-  font-variant-ligatures: common-ligatures no-discretionary-ligatures no-historical-ligatures
-    contextual;
+  font-variant-ligatures: common-ligatures no-discretionary-ligatures
+    no-historical-ligatures contextual;
   font-variant-numeric: oldstyle-nums proportional-nums;
   font-variation-settings:
     "slnt" 0,
@@ -178,7 +178,7 @@ a {
   &:any-link {
     cursor: pointer;
     text-decoration-skip-ink: auto;
-    text-decoration-thickness: max(0.08em, var(--line-length-xl));
+    text-decoration-thickness: max(0.08em, var(--line-length-l));
     text-underline-offset: 0.1em;
     transition: text-decoration-color var(--duration) var(--timing-function);
   }

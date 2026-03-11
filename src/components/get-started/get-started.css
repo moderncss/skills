@@ -1,4 +1,4 @@
-@scope (section.get-started) {
+@scope (section.get-started) to (.info-popover) {
   > div {
     display: grid;
     gap: var(--length-xl) var(--length-2xl);
@@ -17,6 +17,10 @@
       grid-row: span 4;
       grid-template-rows: subgrid;
     }
+  }
+
+  div div {
+    position: relative;
   }
 
   code-comparison {
