@@ -8,7 +8,7 @@ description: "Modern CSS rules for creating robust, responsive and accessible UI
 
 > Modern CSS rules for creating robust, responsive and accessible UIs.
 
-The rules worked best when you apply them within a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. Most rules use CSS features that are, thanks to [Interop 2024](https://wpt.fyi/interop-2026), [Baseline Widely Available](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility).
+The rules worked best when you apply a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. All the rules use CSS features that are, thanks to [Interop 2024](https://wpt.fyi/interop-2026), [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available, and most are within Widely Available.
 
 The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you choose to use a rule, apply it consistently.
 
@@ -19,6 +19,7 @@ The rules, constraints, and examples are **not intended to be prescriptive**. Us
 - **Rule**: Use `@layer` to organize groups of styles.
 - **Constraint**: Avoid global styles outside of layers.
 - **Rationale**: Prevents style conflicts through managing specificity.
+- **References**: [`@layer` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer).
 - **Example**:
 
 ```css
@@ -36,6 +37,7 @@ The rules, constraints, and examples are **not intended to be prescriptive**. Us
 - **Rule**: Use `@scope` to encapsulate styles.
 - **Constraint**: Avoid custom element and components styles that are outside of a scope.
 - **Rationale**: Prevents styles from bleeding into other components because type selectors (e.g., `h1`, `p`) are scoped to the component.
+- **References**: [`@scope` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope).
 - **Example**:
 
 ```css
@@ -51,6 +53,7 @@ The rules, constraints, and examples are **not intended to be prescriptive**. Us
 - **Rule**: Use `&` for nesting pseudo-classes and pseudo-elements.
 - **Constraint**: Avoid unnested pseudo selectors (e.g. `a {} a:hover {}`).
 - **Rationale**: Clarifies the relationship between the nested selector and the parent selector.
+- **References**: [`&` nesting selector on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector).
 - **Example**:
 
 ```css
@@ -72,6 +75,7 @@ a {
 - **Rule**: Use `:has()` for relational styles.
 - **Constraint**: Avoid `.has-`-like class names (e.g. `.has-img {}`).
 - **Rationale**: Creates "smart" components that adapt to relationships.
+- **References**: [`:has()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:has).
 - **Example**:
 
 ```css
@@ -87,6 +91,7 @@ a {
 - **Rule**: Use `:not()` and range queries (e.g. `@media (20em < width <= 40em)`) to create additive styles.
 - **Constraint**: Avoid overriding styles (e.g. `div { margin: 1rem; &:first-child { margin-block-start: 0; } }`)
 - **Rationale**: Simplifies the mental model because you don't have to keep track of which styles are being overridden.
+- **References**: [`:not()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:not), [media query range syntax on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries#syntax_improvements_in_level_4).
 - **Example**:
 
 ```css
@@ -121,6 +126,8 @@ a {
 - **Rule**: Use `clamp()` for font sizes to create harmonious rhythmic scales that are appropriate to the screen size, e.g. Major Second (1.125) on narrow viewports and Major Third (1.25) wide ones.
 - **Constraint**: Avoid fixed font sizes (e.g., `px`, `rem`) and central values without an addition (e.g. `clamp(1.75rem, 5cqi, 2.25rem)`).
 - **Rationale**: Ensures text is appropriately sized across different viewport sizes and can be zoomed for accessibility.
+- **References**: [`clamp()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/) and [Designing with fluid type scales
+  ](https://utopia.fyi/blog/designing-with-fluid-type-scales).
 - **Example**:
 
 ```css
@@ -135,6 +142,7 @@ a {
 - **Rule**: Use `text-wrap` with `pretty` or `balance` to avoid widow and orphan words.
 - **Constraint**: Avoid default wrapping outside of inputs and text areas.
 - **Rationale**: Improves the readability and aesthetics of text blocks.
+- **References**: [`text-wrap` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap).
 - **Example**:
 
 ```css
@@ -156,6 +164,7 @@ p {
 - **Rule**: Use `oklch()` for all colors.
 - **Constraint**: Avoid `hex`, `rgb()`, `hsl()` and other color formats.
 - **Rationale**: Easier to maintain perceptual uniform lightness to ensure text is accessible regardless of background color.
+- **References**: [`oklch()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch).
 - **Example**:
 
 ```css
@@ -170,6 +179,7 @@ p {
 - **Rule**: Use `color-scheme` and `light-dark()` to support color schemes.
 - **Constraint**: Avoid hardcoding colors that don't adapt to light and dark modes.
 - **Rationale**: Improves accessibility by respecting a person's preference for light or dark mode.
+- **References**: [`color-scheme` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme), [`light-dark()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark).
 - **Example**:
 
 ```css
@@ -184,6 +194,7 @@ body {
 - **Rule**: Use relative color syntax (e.g. `oklch(from var(--primary) l + 10%)`) and functions (e.g. `color-mix()`) to create color relationships.
 - **Constraint**: Avoid hardcoding colors that relate to other colors.
 - **Rationale**: Creates a cohesive color palette that is easier to maintain and adjust.
+- **References**: [relative colors on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors), [`color-mix()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix).
 - **Example**:
 
 ```css
@@ -203,6 +214,8 @@ button {
 - **Rule**: Use `container` queries and units (e.g. `cqi`, `cqb`) for responsive layouts.
 - **Constraint**: Avoid fixed units for spacing (e.g. `padding-block: 16px`, `margin-inline: 1rem`) as they create hard edges and seams.
 - **Rationale**: Improves modularity and reusability as components adapt to their container size, and work across all device sizes not just a few.
+- **References**: [`container` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/container), [container query length units on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/) and [Designing with fluid type scales
+  ](https://utopia.fyi/blog/designing-with-fluid-type-scales).
 - **Example**:
 
 ```css
@@ -217,6 +230,7 @@ button {
 - **Rule**: Use intrinsic sizing (e.g. `max-inline-size: fit-content`, `block-size: max-content`).
 - **Constraint**: Avoid fixed sizes (e.g. `width: 300px`, `height: 200px`) for content elements.
 - **Rationale**: Improves flexibility and prevents overflow issues as content determines its own size.
+- **References**: [`fit-content` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content), [`max-content` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/max-content).
 - **Example**:
 
 ```css
@@ -232,6 +246,7 @@ nav {
 - **Rule**: Use `prefers-reduced-motion: no-preference` when applying large animations and transitions.
 - **Constraint**: Avoid `prefers-reduced-motion: reduce`.
 - **Rationale**: Respects a person's preferences for motion to prevent motion sickness and improve accessibility.
+- **References**: [`prefers-reduced-motion` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion).
 - **Example**:
 
 ```css
