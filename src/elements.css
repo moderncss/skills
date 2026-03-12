@@ -147,7 +147,7 @@ code {
     "MONO" 1;
 
   &:not(pre code) {
-    background-color: var(--color-bg-tertiary);
+    background-color: var(--color-bg-secondary);
     border-radius: var(--length-3xs);
     font-family: inherit;
     font-size: 0.9em;

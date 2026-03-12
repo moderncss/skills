@@ -25,6 +25,10 @@
       font-size: var(--font-size);
       margin-block: 0;
     }
+
+    code {
+      background-color: var(--color-bg-tertiary);
+    }
   }
 
   ul {
