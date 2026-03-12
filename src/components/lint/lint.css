@@ -40,7 +40,7 @@
       }
 
       @media (width > 30em) {
-        max-inline-size: 46ch;
+        max-inline-size: 47ch;
         place-content: space-around;
         place-items: center;
         text-align: start;
