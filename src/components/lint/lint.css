@@ -8,7 +8,7 @@
     @media (width > 30em) {
       display: grid;
       margin-inline: auto;
-      max-inline-size: 40ch;
+      max-inline-size: 48ch;
       place-items: center;
       text-align: center;
     }
@@ -40,7 +40,7 @@
       }
 
       @media (width > 30em) {
-        max-inline-size: 38ch;
+        max-inline-size: 46ch;
         place-content: space-around;
         place-items: center;
         text-align: start;
