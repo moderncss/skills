@@ -8,9 +8,9 @@ description: "Modern CSS rules for creating robust, responsive and accessible UI
 
 > Modern CSS rules for creating robust, responsive and accessible UIs.
 
-The rules worked best when you apply a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. All the rules use CSS features that are, thanks to [Interop 2024](https://wpt.fyi/interop-2026), [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available, and most are within Widely Available.
+The rules worked best when you apply a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. The CSS features are within [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available. Thanks to [Interop](https://wpt.fyi/interop-2026), most are within Widely Available.
 
-The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you choose to use a rule, apply it consistently.
+The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if use a rule, apply it consistently.
 
 ## Rules
 
