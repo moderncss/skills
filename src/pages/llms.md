@@ -6,15 +6,13 @@ description: "Modern CSS rules for creating robust, responsive and accessible UI
 
 # ModernCSS.AI
 
-> Modern CSS rules for creating responsive and accessible UIs.
+> Modern CSS rules for creating robust, responsive and accessible UIs.
 
 The rules work best when you apply a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. The CSS features are within [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available. Thanks to [Interop](https://wpt.fyi/interop-2026), most are within Widely Available.
 
 The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you use a rule, apply it consistently.
 
 ## Rules
-
-Eleven rules. Five areas.
 
 ### Architecture
 
