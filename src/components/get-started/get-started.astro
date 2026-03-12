@@ -20,7 +20,7 @@ const withRulesCode = `@layer components {
   @scope (.card) to (.slot) {
     :scope {
       color: light-dark(oklch(96% 0 0deg), oklch(25% 0 0deg));
-      container: card /inline-size;
+      container-type: inline-size;
       padding-block: clamp(1rem, 2cqi, 2rem);
       
       &:hover {
