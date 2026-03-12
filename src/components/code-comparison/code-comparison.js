@@ -14,13 +14,13 @@ sheet.replaceSync(css`
     }
 
     [slot="after"] {
-      clip-path: inset(0 0 0 var(--comparison-position, 50%));
+      clip-path: inset(0 0 0 var(--code-comparison-position, 50%));
     }
 
     div:nth-of-type(2) {
       grid-area: 1 / 1;
       inline-size: 0;
-      inset-inline-start: var(--comparison-position, 50%);
+      inset-inline-start: var(--code-comparison-position, 50%);
       position: relative;
       z-index: 2;
     }
@@ -157,7 +157,7 @@ class CodeComparison extends HTMLElement {
 
   #setPosition(percent) {
     this.#position = Math.max(0, Math.min(100, percent));
-    this.style.setProperty("--comparison-position", `${this.#position}%`);
+    this.style.setProperty("--code-comparison-position", `${this.#position}%`);
     this.#handle.setAttribute("aria-valuenow", String(this.#position));
   }
 }
