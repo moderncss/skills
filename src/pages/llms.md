@@ -40,7 +40,7 @@ Eleven rules. Five areas.
 
 - **Rule**: Use `@scope` to encapsulate styles.
 - **Constraint**: Avoid custom element and components styles that are outside of a scope.
-- **Rationale**: Prevents styles from bleeding into other components because type selectors (e.g., `h1`, `p`) are scoped to the component.
+- **Rationale**: Prevents styles from bleeding into other components because selectors are scoped to the component.
 - **References**: [`@scope` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope).
 - **Example**:
 
@@ -52,10 +52,10 @@ Eleven rules. Five areas.
 }
 ```
 
-#### Nesting pseudo-classes and pseudo-elements (`&`)
+#### Nesting rules and at-rules (`&`)
 
-- **Rule**: Use `&` for nesting pseudo-classes and pseudo-elements.
-- **Constraint**: Avoid unnested pseudo selectors (e.g. `a {} a:hover {}`).
+- **Rule**: Use `&` for nesting rules and at-rules.
+- **Constraint**: Avoid unnested selectors (e.g. `a {} a:hover {}`).
 - **Rationale**: Clarifies the relationship between the nested selector and the parent selector.
 - **References**: [`&` nesting selector on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector).
 - **Example**:
@@ -68,8 +68,8 @@ a {
     text-decoration: underline;
   }
 
-  &::after {
-    content: " ↗";
+  @container (width > 20em ) {
+    place-self: center;
   }
 }
 ```
@@ -92,7 +92,7 @@ a {
 
 #### Additive properties (`:not()` and `20em < width <= 40em )`)
 
-- **Rule**: Use `:not()` and range queries (e.g. `@media (20em < width <= 40em)`) to create additive styles.
+- **Rule**: Use `:not()` and ranged queries (e.g. `@media (20em < width <= 40em)`) to create additive styles.
 - **Constraint**: Avoid overriding styles (e.g. `div { margin: 1rem; &:first-child { margin-block-start: 0; } }`)
 - **Rationale**: Simplifies the mental model because you don't have to keep track of which styles are being overridden.
 - **References**: [`:not()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:not), [media query range syntax on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries#syntax_improvements_in_level_4).
@@ -128,7 +128,7 @@ a {
 #### Fluid type sizes (`clamp()`)
 
 - **Rule**: Use `clamp()` for font sizes to create harmonious rhythmic scales that are appropriate to the screen size, e.g. Major Second (1.125) on narrow viewports and Major Third (1.25) wide ones.
-- **Constraint**: Avoid fixed font sizes (e.g., `px`, `rem`) and central values without an addition (e.g. `clamp(1.75rem, 5cqi, 2.25rem)`).
+- **Constraint**: Avoid fixed font sizes (e.g., `px`, `rem`) and central values without a `rem` addition (e.g. `clamp(1.75rem, 5cqi, 2.25rem)`).
 - **Rationale**: Ensures text is appropriately sized across different viewport sizes and can be zoomed for accessibility.
 - **References**: [`clamp()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/) and [Designing with fluid type scales
   ](https://utopia.fyi/blog/designing-with-fluid-type-scales).
@@ -226,6 +226,12 @@ button {
 .card {
   container: card / inline-size;
   padding: 2cqi;
+
+  p {
+    @container card (width > 30cqi) {
+      place-self: center;
+    }
+  }
 }
 ```
 
