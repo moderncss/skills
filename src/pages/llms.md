@@ -269,7 +269,7 @@ nav {
 
 ## Example in practice
 
-This site follows the rules. Study the implementation [on GitHub](https://github.com/moderncss/dotai) for concrete examples of each pattern:
+This site follows the rules. Study the implementation [on GitHub](https://github.com/moderncss/dotai) for concrete examples of each:
 
 - [`src/styles.css`](https://github.com/moderncss/dotai/blob/main/src/styles.css) — `@layer`
 - [`src/variables.css`](https://github.com/moderncss/dotai/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
