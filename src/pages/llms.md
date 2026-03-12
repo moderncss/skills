@@ -12,9 +12,13 @@ The rules worked best when you apply a **[progressive enhancement](https://devel
 
 The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you choose to use a rule, apply it consistently.
 
-## Architecture
+## Rules
 
-### Organizing styles (`@layer`)
+Eleven rules. Five areas.
+
+### Architecture
+
+#### Organizing styles (`@layer`)
 
 - **Rule**: Use `@layer` to organize groups of styles.
 - **Constraint**: Avoid global styles outside of layers.
@@ -32,7 +36,7 @@ The rules, constraints, and examples are **not intended to be prescriptive**. Us
 }
 ```
 
-### Encapsulating styles (`@scope`)
+#### Encapsulating styles (`@scope`)
 
 - **Rule**: Use `@scope` to encapsulate styles.
 - **Constraint**: Avoid custom element and components styles that are outside of a scope.
@@ -48,7 +52,7 @@ The rules, constraints, and examples are **not intended to be prescriptive**. Us
 }
 ```
 
-### Nesting pseudo-classes and pseudo-elements (`&`)
+#### Nesting pseudo-classes and pseudo-elements (`&`)
 
 - **Rule**: Use `&` for nesting pseudo-classes and pseudo-elements.
 - **Constraint**: Avoid unnested pseudo selectors (e.g. `a {} a:hover {}`).
@@ -70,7 +74,7 @@ a {
 }
 ```
 
-### Relational styles (`:has()`)
+#### Relational styles (`:has()`)
 
 - **Rule**: Use `:has()` for relational styles.
 - **Constraint**: Avoid `.has-`-like class names (e.g. `.has-img {}`).
@@ -86,7 +90,7 @@ a {
 }
 ```
 
-### Additive properties (`:not()` and `20em < width <= 40em )`)
+#### Additive properties (`:not()` and `20em < width <= 40em )`)
 
 - **Rule**: Use `:not()` and range queries (e.g. `@media (20em < width <= 40em)`) to create additive styles.
 - **Constraint**: Avoid overriding styles (e.g. `div { margin: 1rem; &:first-child { margin-block-start: 0; } }`)
@@ -119,9 +123,9 @@ a {
 }
 ```
 
-## Typography
+### Typography
 
-### Fluid type sizes (`clamp()`)
+#### Fluid type sizes (`clamp()`)
 
 - **Rule**: Use `clamp()` for font sizes to create harmonious rhythmic scales that are appropriate to the screen size, e.g. Major Second (1.125) on narrow viewports and Major Third (1.25) wide ones.
 - **Constraint**: Avoid fixed font sizes (e.g., `px`, `rem`) and central values without an addition (e.g. `clamp(1.75rem, 5cqi, 2.25rem)`).
@@ -137,7 +141,7 @@ a {
 }
 ```
 
-### Widow and orphan words (`text-wrap`)
+#### Widow and orphan words (`text-wrap`)
 
 - **Rule**: Use `text-wrap` with `pretty` or `balance` to avoid widow and orphan words.
 - **Constraint**: Avoid default wrapping outside of inputs and text areas.
@@ -157,9 +161,9 @@ p {
 }
 ```
 
-## Colors
+### Colors
 
-### Perceptual uniform lightness (`oklch()`)
+#### Perceptual uniform lightness (`oklch()`)
 
 - **Rule**: Use `oklch()` for all colors.
 - **Constraint**: Avoid `hex`, `rgb()`, `hsl()` and other color formats.
@@ -174,7 +178,7 @@ p {
 }
 ```
 
-### Respecting color preferences (`color-scheme`)
+#### Respecting color preferences (`color-scheme`)
 
 - **Rule**: Use `color-scheme` and `light-dark()` to support color schemes.
 - **Constraint**: Avoid hardcoding colors that don't adapt to light and dark modes.
@@ -189,7 +193,7 @@ body {
 }
 ```
 
-### Relative color functions (`oklch(from /* .. */)` & `color-mix()` )
+#### Relative color functions (`oklch(from /* .. */)` & `color-mix()` )
 
 - **Rule**: Use relative color syntax (e.g. `oklch(from var(--primary) l + 10%)`) and functions (e.g. `color-mix()`) to create color relationships.
 - **Constraint**: Avoid hardcoding colors that relate to other colors.
@@ -207,11 +211,11 @@ button {
 }
 ```
 
-## Layout
+### Layout
 
-### Container queries and units (`container`)
+#### Container queries and units (`@container`, `cqi` etc.)
 
-- **Rule**: Use `container` queries and units (e.g. `cqi`, `cqb`) for responsive layouts.
+- **Rule**: Use container queries and units (e.g. `cqi`, `cqb`) for responsive layouts.
 - **Constraint**: Avoid fixed units for spacing (e.g. `padding-block: 16px`, `margin-inline: 1rem`) as they create hard edges and seams.
 - **Rationale**: Improves modularity and reusability as components adapt to their container size, and work across all device sizes not just a few.
 - **References**: [`container` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/container), [container query length units on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/) and [Designing with fluid type scales
@@ -225,7 +229,7 @@ button {
 }
 ```
 
-### Intrinsic sizing (`*-content`)
+#### Intrinsic sizing (`*-content`)
 
 - **Rule**: Use intrinsic sizing (e.g. `max-inline-size: fit-content`, `block-size: max-content`).
 - **Constraint**: Avoid fixed sizes (e.g. `width: 300px`, `height: 200px`) for content elements.
@@ -239,9 +243,9 @@ nav {
 }
 ```
 
-## Motion
+### Motion
 
-### Respecting motion preferences (`prefers-reduced-motion`)
+#### Respecting motion preferences (`prefers-reduced-motion`)
 
 - **Rule**: Use `prefers-reduced-motion: no-preference` when applying large animations and transitions.
 - **Constraint**: Avoid `prefers-reduced-motion: reduce`.
@@ -256,3 +260,12 @@ nav {
   }
 }
 ```
+
+## Example in practice
+
+This site follows the rules. Study the implementation [on GitHub](https://github.com/moderncss/dotai) for concrete examples of each pattern:
+
+- [`src/styles.css`](https://github.com/moderncss/dotai/blob/main/src/styles.css) — `@layer`
+- [`src/variables.css`](https://github.com/moderncss/dotai/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
+- [`src/elements.css`](https://github.com/moderncss/dotai/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`
+- [`src/components/signpost/signpost.css`](https://github.com/moderncss/dotai/blob/main/src/components/signpost/signpost.css) — `@scope`
