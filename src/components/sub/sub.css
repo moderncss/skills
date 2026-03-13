@@ -1,0 +1,5 @@
+@scope (div.sub) {
+  main {
+    max-inline-size: 65ch;
+  }
+}

@@ -1,0 +1,11 @@
+---
+import SubLayout from "../layouts/SubLayout.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = await getEntry("skill", "skill");
+const { Content } = await render(entry!);
+---
+
+<SubLayout title="llms.txt - ModernCSS.AI" description="Modern CSS rules for creating robust, responsive and accessible UIs.">
+  <Content />
+</SubLayout>

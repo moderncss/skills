@@ -1,0 +1,116 @@
+---
+import { Code } from "astro:components";
+import InfoPopover from "../info-popover/info-popover.astro";
+
+const before = `.card {
+  color: #f5f5f5;
+  width: 600px;
+  padding: 16px 0;
+}
+@media (max-width: 768px) {
+  .card {
+    padding: 12px 0;
+  }
+}
+.card:hover {
+  background-color: #e0e0e0;
+}`;
+
+const withRulesCode = `@layer components {
+  @scope (.card) to (.slot) {
+    :scope {
+      color: light-dark(oklch(96% 0 0deg), oklch(25% 0 0deg));
+      container-type: inline-size;
+      padding-block: clamp(1rem, 2cqi, 2rem);
+      
+      &:hover {
+        background-color: oklch(from currentcolor calc(l + 10%) c h);
+      }
+    }
+  }
+}`;
+
+const prompts = `Fetch https://moderncss.ai/llms.txt and use its rules for modern CSS in this new project. Apply them to all CSS you write.
+
+Fetch https://moderncss.ai/llms.txt. Use it to style the BaseUI (successor to Radix) \`Button\` component with modern CSS that matches my site's look and feel.
+
+Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these rules and refactor them to use modern CSS. Only apply rules that are within Baseline Widely Available.`;
+---
+
+<section class="get-started">
+  <h2>Get started</h2>
+  <div>
+    <form>
+      <label for="skill-command">
+        <a href="/skill">Read the rules</a> or add the <a href="/SKILL.md"
+          >skill</a
+        >
+        <InfoPopover id="info-skill" label="What is an Agent Skill?" inline>
+          <p>
+            An <a href="https://agentskills.io">Agent Skill</a> is set of instructions
+            for AI coding agents.
+          </p>
+        </InfoPopover>:
+      </label>
+      <copy-clipboard>
+        <input
+          id="skill-command"
+          type="text"
+          value="npx skills add moderncss/skills"
+          readonly
+        />
+      </copy-clipboard>
+      <label for="llms-prompt">
+        Or fetch the <a href="/llms.txt">llms.txt</a>
+        <InfoPopover id="info-llms" label="What is llms.txt?" inline>
+          <p>
+            The <a href="https://llmstxt.org">llms.txt</a> format is another way to
+            provide information to LLMs.
+          </p>
+        </InfoPopover>:
+      </label>
+      <prompt-cycler>
+        <copy-clipboard>
+          <textarea id="llms-prompt" readonly>{prompts}</textarea>
+        </copy-clipboard>
+      </prompt-cycler>
+    </form>
+    <div>
+      <code-comparison>
+        <div slot="before">
+          <Code
+            code={before}
+            lang="css"
+            themes={{ light: "one-light", dark: "min-dark" }}
+            defaultColor="light-dark()"
+          />
+        </div>
+        <div slot="after">
+          <Code
+            code={withRulesCode}
+            lang="css"
+            themes={{ light: "one-light", dark: "min-dark" }}
+            defaultColor="light-dark()"
+          />
+        </div>
+      </code-comparison>
+      <InfoPopover id="info-code" label="About this comparison">
+        <p>
+          The <a href="/skill#organizing-styles-layer">layers</a>, <a
+            href="/skill#encapsulating-styles-scope">scopes</a
+          >, <a href="/skill#nesting-rules-and-at-rules-">nesting</a>, <a
+            href="/skill#perceptual-uniform-lightness-oklch">relative colors</a
+          >, and
+          <a href="/skill#container-queries-and-units-container-cqi-etc"
+            >container units</a
+          > rules in action.
+        </p>
+      </InfoPopover>
+      <p>
+        <small>
+          Before & after with GPT-5.3-Codex and Claude Sonnet 4.6.
+        </small>
+      </p>
+    </div>
+  </div>
+</section>

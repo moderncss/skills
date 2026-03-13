@@ -1,0 +1,56 @@
+@scope (p.signpost) {
+  :scope {
+    margin-block-start: var(--length-l);
+  }
+
+  a {
+    &:any-link {
+      align-items: center;
+      color: var(--color-fg-strong);
+      display: inline flex;
+      font-weight: 600;
+      position: relative;
+      text-decoration: none;
+    }
+
+    span {
+      text-decoration: underline;
+      text-decoration-color: currentcolor;
+      text-decoration-thickness: max(0.08em, var(--line-length-xl));
+      text-underline-offset: 0.2em;
+      transition:
+        text-decoration-color var(--duration-l) var(--timing-function),
+        text-decoration-thickness var(--duration-l) var(--timing-function),
+        text-underline-offset var(--duration-l) var(--timing-function-elastic);
+    }
+
+    svg {
+      inset-inline-start: 95%;
+      padding-inline-start: var(--length-s);
+      position: absolute;
+      transition: transform var(--duration-l) var(--timing-function-elastic);
+    }
+
+    &:hover,
+    &:focus-within {
+      span {
+        text-decoration-color: var(--color-accent);
+        text-decoration-thickness: max(0.12em, var(--line-length-xl));
+        text-underline-offset: 0.4em;
+      }
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
+
+    &:active {
+      span {
+        text-decoration-color: var(--color-accent-strong);
+        text-decoration-thickness: var(--line-length-xl);
+        text-underline-offset: 0.2em;
+        transition: none;
+      }
+    }
+  }
+}

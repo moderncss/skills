@@ -1,0 +1,52 @@
+---
+import Signpost from "../signpost/signpost.astro";
+---
+
+<section class="what">
+  <h2>What are the rules</h2>
+  <p>11 rules. 5 areas. Each with a constraint, rationale and code example.</p>
+  <ul>
+    <li>
+      <h3><a href="/skill#architecture">Architecture</a></h3>
+      <p>
+        Manage specificity with <code>@layer</code>, encapsulated styles with <code
+          >@scope</code
+        >, nesting with <code>&amp;</code> and relational styles with <code
+          >:has()</code
+        >
+      </p>
+    </li>
+    <li>
+      <h3><a href="/skill#typography">Typography</a></h3>
+      <p>
+        Fluid type sizes with <code>clamp()</code>, and text wrapping with <code
+          >text-wrap: balance</code
+        > and <code>pretty</code>
+      </p>
+    </li>
+    <li>
+      <h3><a href="/skill#colors">Colors</a></h3>
+      <p>
+        Perceptually uniform lightness with <code>oklch()</code>, color scheme
+        support with <code>light-dark()</code>, and relative colors
+      </p>
+    </li>
+    <li>
+      <h3><a href="/skill#layout">Layout</a></h3>
+      <p>
+        Container queries and units, intrinsic sizing with <code
+          >fit-content</code
+        > and <code>max-content</code>
+      </p>
+    </li>
+    <li>
+      <h3><a href="/skill#motion">Motion</a></h3>
+      <p>
+        Respecting motion preferences with <code
+          >prefers-reduced-motion: no-preference</code
+        >
+      </p>
+    </li>
+  </ul>
+  <Signpost href="/skill">Read the full rules</Signpost>
+</section>

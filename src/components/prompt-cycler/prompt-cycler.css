@@ -1,0 +1,32 @@
+@scope (prompt-cycler) {
+  nav {
+    gap: var(--length);
+    margin-block-start: var(--length-s);
+
+    > button {
+      padding: var(--length-3xs);
+
+      svg {
+        block-size: 1lh;
+        inline-size: 1lh;
+      }
+    }
+  }
+
+  span {
+    align-items: center;
+    display: block flex;
+    gap: var(--length-2xs);
+
+    span {
+      background-color: var(--color-bg-tertiary);
+      block-size: var(--length-2xs);
+      border-radius: 50%;
+      inline-size: var(--length-2xs);
+
+      &[aria-current="step"] {
+        background-color: var(--color-accent);
+      }
+    }
+  }
+}

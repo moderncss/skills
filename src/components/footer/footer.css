@@ -1,0 +1,47 @@
+@scope (footer) {
+  :scope {
+    border-block-start: var(--line-length) solid var(--color-line);
+    display: block grid;
+    font-size: var(--font-size-s);
+    gap: var(--length-2xs) var(--length-3xs);
+    margin-block-start: var(--length-l-xl);
+    padding-block: var(--length-l-xl);
+
+    @media (width > 30em) {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  p,
+  a {
+    color: var(--color-fg-muted);
+    display: block flex;
+    place-items: center;
+  }
+
+  p {
+    margin-block: 0;
+
+    &:first-of-type {
+      gap: var(--length-2xs);
+    }
+
+    &:last-of-type {
+      gap: var(--length-3xs);
+    }
+  }
+
+  a {
+    gap: var(--length-3xs);
+
+    &:hover,
+    &:focus-within {
+      color: var(--color-fg);
+    }
+  }
+
+  svg {
+    block-size: 1em;
+    inline-size: 1em;
+  }
+}

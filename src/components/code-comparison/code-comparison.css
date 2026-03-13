@@ -1,0 +1,26 @@
+@scope (code-comparison) {
+  :scope {
+    border-radius: var(--length-xs);
+    display: block grid;
+    gap: var(--length-2xs);
+
+    &:not(:hover, :focus) pre {
+      filter: grayscale(1);
+    }
+  }
+
+  pre {
+    &:not(:hover, :focus) {
+      filter: none;
+    }
+  }
+
+  div:nth-of-type(2) {
+    border-inline-start: var(--line-length) solid var(--color-line);
+  }
+
+  button {
+    block-size: var(--length-xl);
+    inline-size: var(--length-l);
+  }
+}

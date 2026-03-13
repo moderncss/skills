@@ -1,0 +1,32 @@
+@scope (header) {
+  a {
+    color: var(--color-fg-strong);
+    font-size: var(--font-size-s);
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  svg {
+    block-size: 1.2lh;
+    display: inline flow;
+    inline-size: 1.2lh;
+    margin-inline: var(--length-4xs);
+    vertical-align: -0.15em;
+  }
+
+  path {
+    &:first-of-type {
+      fill: var(--color-fg-strong);
+
+      :scope:hover & {
+        fill: var(--purple);
+        transition: fill var(--duration) var(--timing-function);
+      }
+    }
+
+    &:last-of-type {
+      fill: light-dark(var(--gray-98), var(--gray-14));
+    }
+  }
+}

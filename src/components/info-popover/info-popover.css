@@ -1,0 +1,48 @@
+@scope (span.info-popover) {
+  :scope {
+    &[data-variant="inline"] {
+      --info-popover-size: 0.8em;
+      --info-popover-position: bottom;
+      --info-popover-margin-block: var(--length-2xs);
+      --info-popover-margin-inline: var(--length-2xs);
+    }
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    box-shadow: none;
+    color: var(--color-fg);
+    display: inline flex;
+    font-size: var(--font-size);
+    padding: 0;
+
+    &:hover,
+    &:active {
+      background-color: transparent;
+      color: var(--color-fg-strong);
+    }
+  }
+
+  svg {
+    block-size: var(--info-popover-size, 1em);
+    inline-size: var(--info-popover-size, 1em);
+  }
+
+  dialog {
+    background-color: light-dark(var(--color-bg), var(--color-bg-quaternary));
+    border: var(--line-length) solid var(--color-line);
+    border-radius: var(--length-2xs);
+    box-shadow: var(--shadow-l);
+    color: var(--color-fg);
+    font-size: var(--font-size-xs);
+    margin-block: var(--info-popover-margin-block, var(--length-4xs));
+    margin-inline: var(--info-popover-margin-inline, var(--length-4xs));
+    max-inline-size: 30ch;
+    padding-block: var(--length-2xs);
+    padding-inline: var(--length-s);
+    position-area: var(--info-popover-position, bottom left);
+    text-align: center;
+  }
+}

@@ -1,0 +1,12 @@
+---
+import Layout from "./Layout.astro";
+import Sub from "../components/sub/sub.astro";
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <Sub>
+    <slot />
+  </Sub>
+</Layout>

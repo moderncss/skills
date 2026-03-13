@@ -1,0 +1,45 @@
+@scope (section.what) {
+  :scope {
+    @media (width > 30em) {
+      margin-inline: auto;
+      max-inline-size: 90ch;
+      text-align: center;
+    }
+  }
+
+  li {
+    all: unset;
+    background-color: var(--color-bg-secondary);
+    border-radius: var(--length-xs);
+    container-type: inline-size;
+    padding-block: var(--length);
+    padding-inline: var(--length);
+    transition: opacity var(--duration-l) var(--timing-function);
+
+    h3 {
+      font-size: var(--font-size-l);
+      margin-block: 0 var(--length-xs);
+    }
+
+    p {
+      font-size: var(--font-size);
+      margin-block: 0;
+    }
+
+    code {
+      background-color: var(--color-bg-tertiary);
+    }
+  }
+
+  ul {
+    all: unset;
+    display: block grid;
+    gap: var(--length);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15em), 1fr));
+    margin-block-start: var(--length-l);
+
+    &:has(li:hover, li:focus-within) li:not(:hover, li:focus-within) {
+      opacity: 0.55;
+    }
+  }
+}
