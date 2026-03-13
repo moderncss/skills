@@ -5,17 +5,18 @@
     "": {
       "name": "modern-css-skills",
       "dependencies": {
-        "astro": "latest",
+        "astro": "6.0.4",
       },
       "devDependencies": {
-        "@astrojs/check": "latest",
-        "@playwright/test": "latest",
-        "oxfmt": "latest",
-        "oxlint": "latest",
-        "postcss-lit": "latest",
-        "stylelint": "latest",
-        "stylelint-config-alphabetical-order": "latest",
-        "stylelint-config-standard": "latest",
+        "@astrojs/check": "0.9.7",
+        "@playwright/test": "^1.58.2",
+        "oxfmt": "^0.40.0",
+        "oxlint": "^1.55.0",
+        "postcss-lit": "^1.4.1",
+        "stylelint": "^17.4.0",
+        "stylelint-config-alphabetical-order": "^2.0.0",
+        "stylelint-config-modern": "^0.1.0",
+        "stylelint-config-standard": "^40.0.0",
       },
     },
   },
@@ -941,6 +942,8 @@
     "stylelint": ["stylelint@17.4.0", "", { "dependencies": { "@csstools/css-calc": "^3.1.1", "@csstools/css-parser-algorithms": "^4.0.0", "@csstools/css-syntax-patches-for-csstree": "^1.0.27", "@csstools/css-tokenizer": "^4.0.0", "@csstools/media-query-list-parser": "^5.0.0", "@csstools/selector-resolve-nested": "^4.0.0", "@csstools/selector-specificity": "^6.0.0", "colord": "^2.9.3", "cosmiconfig": "^9.0.0", "css-functions-list": "^3.3.3", "css-tree": "^3.1.0", "debug": "^4.4.3", "fast-glob": "^3.3.3", "fastest-levenshtein": "^1.0.16", "file-entry-cache": "^11.1.2", "global-modules": "^2.0.0", "globby": "^16.1.0", "globjoin": "^0.1.4", "html-tags": "^5.1.0", "ignore": "^7.0.5", "import-meta-resolve": "^4.2.0", "imurmurhash": "^0.1.4", "is-plain-object": "^5.0.0", "mathml-tag-names": "^4.0.0", "meow": "^14.0.0", "micromatch": "^4.0.8", "normalize-path": "^3.0.0", "picocolors": "^1.1.1", "postcss": "^8.5.6", "postcss-safe-parser": "^7.0.1", "postcss-selector-parser": "^7.1.1", "postcss-value-parser": "^4.2.0", "string-width": "^8.1.1", "supports-hyperlinks": "^4.4.0", "svg-tags": "^1.0.0", "table": "^6.9.0", "write-file-atomic": "^7.0.0" }, "bin": { "stylelint": "bin/stylelint.mjs" } }, "sha512-3kQ2/cHv3Zt8OBg+h2B8XCx9evEABQIrv4hh3uXahGz/ZEHrTR80zxBiK2NfXNaSoyBzxO1pjsz1Vhdzwn5XSw=="],
 
     "stylelint-config-alphabetical-order": ["stylelint-config-alphabetical-order@2.0.0", "", { "dependencies": { "stylelint-order": "^7.0.0" } }, "sha512-oI72VCiqyuB8X0JZzDTPDoX1eicWwUCrvtXaWiiLNuz6pSnt9yL+ZE+q08BQSZdwlmtneG6eDo/XRCOaOX5ARg=="],
+
+    "stylelint-config-modern": ["stylelint-config-modern@0.1.0", "", {}, "sha512-DAxF/ORi5Q08B9yxC1R+gFcj/etcWdaJ39vtwbgB/gtG/pfHz1sHE0bXrOB/0aygNluLc8uz5B3D9Z+6WAFlZA=="],
 
     "stylelint-config-recommended": ["stylelint-config-recommended@18.0.0", "", { "peerDependencies": { "stylelint": "^17.0.0" } }, "sha512-mxgT2XY6YZ3HWWe3Di8umG6aBmWmHTblTgu/f10rqFXnyWxjKWwNdjSWkgkwCtxIKnqjSJzvFmPT5yabVIRxZg=="],
 
