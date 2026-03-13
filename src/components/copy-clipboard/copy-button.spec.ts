@@ -6,17 +6,18 @@ test.describe("copy button", () => {
     await page.goto("/");
 
     const section = page.getByRole("heading", { name: "Get started" }).locator("..");
-    const copyBtn = section.getByRole("button", { name: "Copy" });
+    const promptCycler = section.locator("prompt-cycler");
+    const copyBtn = promptCycler.getByRole("button", { name: "Copy" });
     await expect(copyBtn).toBeVisible();
 
     // Wait for the initial auto-type to finish before copying
-    const textarea = section.getByRole("textbox");
+    const textarea = promptCycler.locator("textarea");
     await expect(textarea).toHaveValue(/you write\.$/, { timeout: 10_000 });
 
     await copyBtn.click();
 
     const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-    const textareaValue = await section.getByRole("textbox").inputValue();
+    const textareaValue = await textarea.inputValue();
     expect(clipboardText).toBe(textareaValue);
 
     // Button shows "Copied" state via aria-hidden toggling

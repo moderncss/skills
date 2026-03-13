@@ -9,6 +9,6 @@ test.describe("llms.txt endpoint", () => {
 
     const body = await response.text();
 
-    expect(body).toContain("# ModernCSS.AI");
+    expect(body).toContain("# Modern CSS");
   });
 });
