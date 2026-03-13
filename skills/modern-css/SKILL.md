@@ -1,6 +1,8 @@
 ---
 name: modern-css
-description: Modern CSS rules for robust, responsive and accessible UIs. Use this skill when writing any CSS code.
+description: Use this skill when writing CSS code or building UI components. It's modern CSS rules for robust, responsive and accessible UIs.
+metadata:
+  tags: css, modern, best practices, rules, guidelines
 ---
 
 # Modern CSS
