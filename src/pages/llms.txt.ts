@@ -1,4 +1,4 @@
-import rawContent from "./llms.md?raw";
+import rawContent from "../../skills/modern-css/SKILL.md?raw";
 
 const content = rawContent.replace(/^---[\s\S]*?---\s*/, "");
 

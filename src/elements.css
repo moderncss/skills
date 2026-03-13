@@ -226,10 +226,11 @@ svg {
 
 label {
   display: block;
-  margin-block-end: var(--length);
+  margin-block-end: var(--length-xs);
 }
 
 button,
+input,
 textarea {
   border: var(--line-length) solid var(--color-line);
   color: inherit;
@@ -239,19 +240,23 @@ textarea {
   text-wrap: wrap;
 }
 
+input,
 textarea {
   background-color: var(--color-bg-secondary);
   border-radius: var(--length-xs);
   box-sizing: border-box;
   inline-size: 100%;
-  min-block-size: calc(4lh + (var(--length-s) * 2));
   padding-block: var(--length-s);
   padding-inline: var(--length);
-  scrollbar-gutter: stable;
 
   &:focus-within {
     border-radius: var(--length-xs);
   }
+}
+
+textarea {
+  min-block-size: calc(3lh + (var(--length) * 2));
+  scrollbar-gutter: stable;
 }
 
 button {

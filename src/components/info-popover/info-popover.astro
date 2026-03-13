@@ -1,5 +1,20 @@
-<div class="info-popover">
-  <button type="button" popovertarget="info-popover" aria-label="Info">
+---
+interface Props {
+  id: string;
+  label?: string;
+  inline?: boolean;
+}
+
+const { id, label = "Info", inline } = Astro.props;
+---
+
+<span class="info-popover" data-variant={inline ? "inline" : undefined}>
+  <button
+    type="button"
+    popovertarget={id}
+    aria-label={label}
+    style={`anchor-name: --${id}`}
+  >
     <svg
       viewBox="0 0 24 24"
       fill="none"
@@ -14,17 +29,7 @@
       <line x1="12" y1="8" x2="12.01" y2="8"></line>
     </svg>
   </button>
-  <dialog id="info-popover" popover>
-    <p>
-      Before: hex colors, fixed sizes and breakpoints, and unnested rules.
-      After: <a href="/llms#organizing-styles-layer">layers</a>, <a
-        href="/llms#encapsulating-styles-scope">scopes</a
-      >, <a href="/llms#nesting-rules-and-at-rules-">nesting</a>, <a
-        href="/llms#perceptual-uniform-lightness-oklch">relative colors</a
-      >, and
-      <a href="/llms#container-queries-and-units-container-cqi-etc"
-        >container units</a
-      >.
-    </p>
+  <dialog id={id} popover style={`position-anchor: --${id}`}>
+    <slot />
   </dialog>
-</div>
+</span>

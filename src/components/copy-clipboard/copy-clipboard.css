@@ -1,4 +1,13 @@
 @scope (copy-clipboard) {
+  input {
+    font-variant-numeric: tabular-nums lining-nums slashed-zero;
+    font-variation-settings:
+      "slnt" 0,
+      "CASL" 0,
+      "CRSV" 0.5,
+      "MONO" 1;
+  }
+
   span:nth-of-type(1) svg {
     button:hover & {
       color: var(--color-accent);

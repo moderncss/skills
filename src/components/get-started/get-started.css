@@ -1,11 +1,11 @@
-@scope (section.get-started) to (.info-popover) {
+@scope (section.get-started) to (.info-popover *) {
   > div {
     display: grid;
     gap: var(--length-xl) var(--length-2xl);
 
     @media (width > 60em) {
       grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: auto 1fr auto auto;
+      grid-template-rows: auto auto auto 1fr auto auto;
     }
   }
 
@@ -14,25 +14,32 @@
     @media (width > 60em) {
       display: grid;
       gap: 0;
-      grid-row: span 4;
+      grid-row: span 6;
       grid-template-rows: subgrid;
     }
   }
 
   div div {
     position: relative;
+
+    & .info-popover {
+      inset-block-start: var(--length-xs);
+      inset-inline-end: var(--length-xs);
+      position: absolute;
+      z-index: 5;
+    }
   }
 
   code-comparison {
     @media (width > 60em) {
-      grid-row: span 3;
+      grid-row: span 5;
     }
   }
 
   prompt-cycler {
     @media (width > 60em) {
       display: grid;
-      grid-row: span 2;
+      grid-row: span 3;
       grid-template-rows: subgrid;
     }
   }
@@ -41,6 +48,12 @@
     @media (width > 60em) {
       display: grid;
       grid-template-rows: subgrid;
+    }
+  }
+
+  label {
+    &:last-of-type {
+      margin-block-start: var(--length);
     }
   }
 

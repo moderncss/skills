@@ -7,7 +7,8 @@ sheet.replaceSync(css`
       position: relative;
     }
 
-    textarea {
+    textarea,
+    input[type="text"] {
       anchor-name: --textarea;
     }
 
@@ -96,14 +97,14 @@ class CopyClipboard extends HTMLElement {
   #init() {
     if (!navigator.clipboard?.writeText) return;
 
-    this.#textarea = this.querySelector("textarea");
+    this.#textarea = this.querySelector("textarea, input[type='text']");
     if (!this.#textarea) return;
 
     this.#controller = new AbortController();
 
     this.#btn = document.createElement("button");
     this.#btn.type = "button";
-    this.#btn.innerHTML = `<span aria-hidden="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3L15 3C15.6 3 16 3.4 16 4L16 7L8 7C7.4 7 7 7.4 7 8L7 17L5 17C4.4 17 4 16.6 4 16L4 4C4 3.4 4.4 3 5 3Z"/><path d="M9 7L19 7C19.6 7 20 7.4 20 8L20 20C20 20.6 19.6 21 19 21L9 21C8.4 21 8 20.6 8 20L8 8C8 7.4 8.4 7 9 7Z"/></svg>Copy</span><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Copied</span>`;
+    this.#btn.innerHTML = `<span aria-hidden="false"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.16667 12.5H3.33333C2.89131 12.5 2.46738 12.3244 2.15482 12.0118C1.84226 11.6993 1.66667 11.2754 1.66667 10.8333V3.33332C1.66667 2.8913 1.84226 2.46737 2.15482 2.15481C2.46738 1.84225 2.89131 1.66666 3.33333 1.66666H10.8333C11.2754 1.66666 11.6993 1.84225 12.0118 2.15481C12.3244 2.46737 12.5 2.8913 12.5 3.33332V4.16666M9.16667 7.49999H16.6667C17.5871 7.49999 18.3333 8.24618 18.3333 9.16666V16.6667C18.3333 17.5871 17.5871 18.3333 16.6667 18.3333H9.16667C8.24619 18.3333 7.5 17.5871 7.5 16.6667V9.16666C7.5 8.24618 8.24619 7.49999 9.16667 7.49999Z"/></svg>Copy</span><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Copied</span>`;
 
     this.#textarea.after(this.#btn);
     this.#btn.addEventListener("click", this, {

@@ -41,14 +41,37 @@ Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these
   <h2>Get started</h2>
   <div>
     <form>
+      <label for="skill-command">
+        <a href="/skill">Read the rules</a> or add the <a href="/SKILL.md"
+          >skill</a
+        >
+        <InfoPopover id="info-skill" label="What is an Agent Skill?" inline>
+          <p>
+            An <a href="https://agentskills.io">Agent Skill</a> is set of instructions
+            for AI coding agents.
+          </p>
+        </InfoPopover>:
+      </label>
+      <copy-clipboard>
+        <input
+          id="skill-command"
+          type="text"
+          value="npx skills add moderncss/skills"
+          readonly
+        />
+      </copy-clipboard>
       <label for="llms-prompt">
-        <a href="/llms">Read the rules</a> or fetch the <a href="/llms.txt"
-          >llms.txt</a
-        > with an AI:
+        Or fetch the <a href="/llms.txt">llms.txt</a>
+        <InfoPopover id="info-llms" label="What is llms.txt?" inline>
+          <p>
+            The <a href="https://llmstxt.org">llms.txt</a> format is another way to
+            provide information to LLMs.
+          </p>
+        </InfoPopover>:
       </label>
       <prompt-cycler>
         <copy-clipboard>
-          <textarea id="llms-prompt">{prompts}</textarea>
+          <textarea id="llms-prompt" readonly>{prompts}</textarea>
         </copy-clipboard>
       </prompt-cycler>
     </form>
@@ -71,7 +94,18 @@ Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these
           />
         </div>
       </code-comparison>
-      <InfoPopover />
+      <InfoPopover id="info-code" label="About this comparison">
+        <p>
+          The <a href="/skill#organizing-styles-layer">layers</a>, <a
+            href="/skill#encapsulating-styles-scope">scopes</a
+          >, <a href="/skill#nesting-rules-and-at-rules-">nesting</a>, <a
+            href="/skill#perceptual-uniform-lightness-oklch">relative colors</a
+          >, and
+          <a href="/skill#container-queries-and-units-container-cqi-etc"
+            >container units</a
+          > rules in action.
+        </p>
+      </InfoPopover>
       <p>
         <small>
           Before & after with GPT-5.3-Codex and Claude Sonnet 4.6.

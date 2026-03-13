@@ -1,19 +1,22 @@
-@scope (div.info-popover) {
+@scope (span.info-popover) {
   :scope {
-    inset-block-start: var(--length-xs);
-    inset-inline-end: var(--length-xs);
-    position: absolute;
-    z-index: 5;
+    &[data-variant="inline"] {
+      --info-popover-size: 0.8em;
+      --info-popover-position: bottom;
+      --info-popover-margin-block: var(--length-2xs);
+      --info-popover-margin-inline: var(--length-2xs);
+    }
   }
 
   button {
-    anchor-name: --info-button;
     background-color: transparent;
     border: none;
     border-radius: 50%;
     box-shadow: none;
     color: var(--color-fg);
+    display: inline-flex;
     font-size: var(--font-size);
+    padding: 0;
 
     &:hover,
     &:active {
@@ -23,8 +26,8 @@
   }
 
   svg {
-    block-size: 1em;
-    inline-size: 1em;
+    block-size: var(--info-popover-size, 1em);
+    inline-size: var(--info-popover-size, 1em);
   }
 
   dialog {
@@ -34,13 +37,12 @@
     box-shadow: var(--shadow-l);
     color: var(--color-fg);
     font-size: var(--font-size-xs);
-    margin-block: 0;
-    margin-inline: 0;
+    margin-block: var(--info-popover-margin-block, var(--length-4xs));
+    margin-inline: var(--info-popover-margin-inline, var(--length-4xs));
     max-inline-size: 30ch;
-    padding-block: var(--length-xs);
-    padding-inline: var(--length);
-    position-anchor: --info-button;
-    position-area: bottom left;
+    padding-block: var(--length-2xs);
+    padding-inline: var(--length-s);
+    position-area: var(--info-popover-position, bottom left);
     text-align: center;
   }
 }

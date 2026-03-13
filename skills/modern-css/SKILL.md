@@ -1,10 +1,9 @@
 ---
-layout: ../layouts/SubLayout.astro
-title: "llms.txt - ModernCSS.AI"
-description: "Modern CSS rules for creating robust, responsive and accessible UIs."
+name: modern-css
+description: Modern CSS rules for robust, responsive and accessible UIs. Use this skill when writing any CSS code.
 ---
 
-# ModernCSS.AI
+# Modern CSS
 
 > Modern CSS rules for creating robust, responsive and accessible UIs.
 
@@ -267,9 +266,9 @@ nav {
 
 ## Example in practice
 
-This site follows the rules. Study the implementation [on GitHub](https://github.com/moderncss/dotai) for concrete examples of each:
+This site follows the rules. Study the implementation [on GitHub](https://github.com/moderncss/skills) for concrete examples of each:
 
-- [`src/styles.css`](https://github.com/moderncss/dotai/blob/main/src/styles.css) — `@layer`
-- [`src/variables.css`](https://github.com/moderncss/dotai/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
-- [`src/elements.css`](https://github.com/moderncss/dotai/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`
-- [`src/components/signpost/signpost.css`](https://github.com/moderncss/dotai/blob/main/src/components/signpost/signpost.css) — `@scope`
+- [`src/styles.css`](https://github.com/moderncss/skills/blob/main/src/styles.css) — `@layer`
+- [`src/variables.css`](https://github.com/moderncss/skills/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
+- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`
+- [`src/components/signpost/signpost.css`](https://github.com/moderncss/skills/blob/main/src/components/signpost/signpost.css) — `@scope`
