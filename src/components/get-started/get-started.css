@@ -9,24 +9,29 @@
     }
   }
 
-  form,
-  div div {
+  form {
     @media (width > 60em) {
-      display: grid;
-      gap: 0;
       grid-row: span 6;
-      grid-template-rows: subgrid;
     }
   }
 
-  div div {
-    position: relative;
+  div {
+    div {
+      position: relative;
 
-    & .info-popover {
-      inset-block-start: var(--length-xs);
-      inset-inline-end: var(--length-xs);
-      position: absolute;
-      z-index: 5;
+      & .info-popover {
+        inset-block-start: var(--length-xs);
+        inset-inline-end: var(--length-xs);
+        position: absolute;
+        z-index: 5;
+      }
+
+      @media (width > 60em) {
+        display: grid;
+        gap: 0;
+        grid-row: span 6;
+        grid-template-rows: subgrid;
+      }
     }
   }
 

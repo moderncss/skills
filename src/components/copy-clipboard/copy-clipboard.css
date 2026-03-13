@@ -1,5 +1,6 @@
 @scope (copy-clipboard) {
   input {
+    align-self: start;
     font-variant-numeric: tabular-nums lining-nums slashed-zero;
     font-variation-settings:
       "slnt" 0,
