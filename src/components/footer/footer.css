@@ -1,7 +1,7 @@
 @scope (footer) {
   :scope {
     border-block-start: var(--line-length) solid var(--color-line);
-    display: grid;
+    display: block grid;
     font-size: var(--font-size-s);
     gap: var(--length-2xs) var(--length-3xs);
     margin-block-start: var(--length-l-xl);
@@ -15,7 +15,7 @@
   p,
   a {
     color: var(--color-fg-muted);
-    display: flex;
+    display: block flex;
     place-items: center;
   }
 

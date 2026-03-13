@@ -15,7 +15,7 @@
 
   span {
     align-items: center;
-    display: flex;
+    display: block flex;
     gap: var(--length-2xs);
 
     span {

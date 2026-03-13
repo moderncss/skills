@@ -3,13 +3,13 @@ const sheet = new CSSStyleSheet();
 sheet.replaceSync(css`
   @scope (code-comparison) {
     :scope {
-      display: grid;
+      display: block grid;
       position: relative;
     }
 
     [slot="before"],
     [slot="after"] {
-      display: grid;
+      display: block grid;
       grid-area: 1 / 1;
     }
 
@@ -28,7 +28,7 @@ sheet.replaceSync(css`
     button {
       align-items: center;
       cursor: col-resize;
-      display: flex;
+      display: block flex;
       inset-block-start: 50%;
       justify-content: center;
       position: absolute;

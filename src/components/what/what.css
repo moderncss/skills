@@ -33,7 +33,7 @@
 
   ul {
     all: unset;
-    display: grid;
+    display: block grid;
     gap: var(--length);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 15em), 1fr));
     margin-block-start: var(--length-l);

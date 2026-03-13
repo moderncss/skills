@@ -225,7 +225,7 @@ svg {
 /* Forms */
 
 label {
-  display: block;
+  display: block flow;
   margin-block-end: var(--length-xs);
 }
 
@@ -265,7 +265,7 @@ button {
   box-shadow: var(--shadow);
   color: var(--color-fg);
   cursor: pointer;
-  display: flex;
+  display: block flex;
   font-size: var(--font-size-s);
   font-weight: 600;
   gap: var(--length-3xs);

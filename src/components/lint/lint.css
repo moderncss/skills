@@ -6,7 +6,7 @@
     padding-inline: var(--length);
 
     @media (width > 30em) {
-      display: grid;
+      display: block grid;
       margin-inline: auto;
       max-inline-size: 48ch;
       place-items: center;
@@ -26,7 +26,7 @@
     &:last-of-type {
       background-color: var(--color-bg-secondary);
       border-radius: var(--length-2xs);
-      display: grid;
+      display: block grid;
       font-size: var(--font-size-s);
       gap: var(--length-2xs) var(--length-s);
       grid-template-columns: auto 1fr;

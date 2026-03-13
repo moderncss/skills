@@ -1,7 +1,7 @@
 @scope (code-comparison) {
   :scope {
     border-radius: var(--length-xs);
-    display: grid;
+    display: block grid;
     gap: var(--length-2xs);
 
     &:not(:hover, :focus) pre {

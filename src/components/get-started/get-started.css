@@ -1,6 +1,6 @@
 @scope (section.get-started) to (.info-popover *) {
   > div {
-    display: grid;
+    display: block grid;
     gap: var(--length-xl) var(--length-2xl);
 
     @media (width > 60em) {
@@ -27,7 +27,7 @@
       }
 
       @media (width > 60em) {
-        display: grid;
+        display: block grid;
         gap: 0;
         grid-row: span 6;
         grid-template-rows: subgrid;
@@ -43,7 +43,7 @@
 
   prompt-cycler {
     @media (width > 60em) {
-      display: grid;
+      display: block grid;
       grid-row: span 3;
       grid-template-rows: subgrid;
     }
@@ -51,7 +51,7 @@
 
   copy-clipboard {
     @media (width > 60em) {
-      display: grid;
+      display: block grid;
       grid-template-rows: subgrid;
     }
   }
@@ -68,7 +68,7 @@
     }
 
     &:last-of-type {
-      display: grid;
+      display: block grid;
       margin-block-start: var(--length-xs);
       padding-inline: var(--length-s);
       place-items: center;

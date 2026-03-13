@@ -15,7 +15,7 @@ sheet.replaceSync(css`
     button {
       align-items: center;
       bottom: calc(anchor(bottom) + var(--length-xs));
-      display: flex;
+      display: block flex;
       min-inline-size: 7em;
       opacity: 0;
       place-content: center;
@@ -32,7 +32,7 @@ sheet.replaceSync(css`
     span:nth-of-type(1),
     span:nth-of-type(2) {
       align-items: center;
-      display: flex;
+      display: block flex;
       gap: 0.25em;
       transition: opacity var(--duration) var(--timing-function);
     }

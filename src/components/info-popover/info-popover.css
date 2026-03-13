@@ -14,7 +14,7 @@
     border-radius: 50%;
     box-shadow: none;
     color: var(--color-fg);
-    display: inline-flex;
+    display: inline flex;
     font-size: var(--font-size);
     padding: 0;
 

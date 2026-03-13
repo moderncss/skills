@@ -4,7 +4,7 @@ sheet.replaceSync(css`
   @scope (prompt-cycler) {
     nav {
       align-items: center;
-      display: flex;
+      display: block flex;
       justify-content: center;
     }
 
