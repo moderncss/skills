@@ -1,5 +1,6 @@
 const css = String.raw;
 const sheet = new CSSStyleSheet();
+
 sheet.replaceSync(css`
   @scope (prompt-cycler) {
     nav {
@@ -25,18 +26,26 @@ sheet.replaceSync(css`
     }
   }
 `);
+
 document.adoptedStyleSheets.push(sheet);
 
+const createIconButton = (label, pathD) => {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.ariaLabel = label;
+  button.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${pathD}"/></svg>`;
+  return button;
+};
+
 class PromptCycler extends HTMLElement {
-  #textarea;
-  #prompts;
-  #index = 0;
-  #controller;
   #animationId;
-  #nav;
   #dots;
+  #index = 0;
   #liveRegion;
-  #reducedMotion;
+  #nextBtn;
+  #prevBtn;
+  #prompts;
+  #textarea;
 
   connectedCallback() {
     if (document.readyState === "loading") {
@@ -50,19 +59,13 @@ class PromptCycler extends HTMLElement {
 
   disconnectedCallback() {
     this.#cancelAnimation();
-    this.#controller?.abort();
   }
 
   handleEvent(event) {
-    if (event.type === "click") {
-      const btn = event.currentTarget;
-
-      if (btn === this.#nav.querySelector(":scope > button:first-of-type")) {
-        this.#go(this.#index === 0 ? this.#prompts.length - 1 : this.#index - 1);
-      } else if (btn === this.#nav.querySelector(":scope > button:last-of-type")) {
-        this.#go(this.#index === this.#prompts.length - 1 ? 0 : this.#index + 1);
-      }
-    }
+    const { length } = this.#prompts;
+    const delta = event.currentTarget === this.#prevBtn ? -1 : 1;
+    this.#go((this.#index + delta + length) % length);
+    this.#liveRegion.textContent = this.#prompts[this.#index];
   }
 
   #init() {
@@ -71,82 +74,42 @@ class PromptCycler extends HTMLElement {
 
     this.#prompts = this.#textarea.value
       .split("\n\n")
-      .map((p) => p.trim().replace(/\s+/g, " "))
+      .map((prompt) => prompt.trim().replace(/\s+/g, " "))
       .filter(Boolean);
     if (this.#prompts.length === 0) return;
 
-    this.#controller = new AbortController();
+    const nav = document.createElement("nav");
+    nav.ariaLabel = "Prompt navigation";
 
-    // Set up reduced motion query
-    const mql = matchMedia("(prefers-reduced-motion: reduce)");
-    this.#reducedMotion = mql.matches;
-    mql.addEventListener(
-      "change",
-      (e) => {
-        this.#reducedMotion = e.matches;
-      },
-      { signal: this.#controller.signal },
-    );
+    this.#prevBtn = createIconButton("Previous prompt", "M15 18l-6-6 6-6");
+    this.#nextBtn = createIconButton("Next prompt", "M9 18l6-6-6-6");
 
-    // Build nav: ‹ ● ○ ○ ›
-    this.#nav = document.createElement("nav");
-    this.#nav.setAttribute("aria-label", "Prompt navigation");
+    const indicator = document.createElement("span");
+    this.#dots = this.#prompts.map(() => document.createElement("span"));
+    indicator.append(...this.#dots);
 
-    const prevBtn = document.createElement("button");
-    prevBtn.type = "button";
-    prevBtn.setAttribute("aria-label", "Previous prompt");
-    prevBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>`;
+    nav.append(this.#prevBtn, indicator, this.#nextBtn);
 
-    const nextBtn = document.createElement("button");
-    nextBtn.type = "button";
-    nextBtn.setAttribute("aria-label", "Next prompt");
-    nextBtn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>`;
-
-    const dotsWrap = document.createElement("span");
-
-    this.#dots = this.#prompts.map((_, i) => {
-      const dot = document.createElement("span");
-      if (i === 0) dot.setAttribute("aria-current", "step");
-      dotsWrap.append(dot);
-      return dot;
-    });
-
-    this.#nav.append(prevBtn, dotsWrap, nextBtn);
-
-    // aria-live region
     this.#liveRegion = document.createElement("p");
-    this.#liveRegion.setAttribute("aria-live", "polite");
-    this.#liveRegion.setAttribute("role", "status");
+    this.#liveRegion.role = "status";
 
-    // Insert nav after copy-clipboard, and live region after nav
-    const copyEl = this.querySelector("copy-clipboard");
-    if (copyEl) {
-      copyEl.after(this.#nav);
-    } else {
-      this.append(this.#nav);
-    }
-    this.#nav.after(this.#liveRegion);
+    this.querySelector("copy-clipboard").after(nav);
+    nav.after(this.#liveRegion);
 
-    // Event listeners using handleEvent
-    prevBtn.addEventListener("click", this);
-    nextBtn.addEventListener("click", this);
+    this.#prevBtn.addEventListener("click", this);
+    this.#nextBtn.addEventListener("click", this);
 
-    // Auto-type the first prompt on load (skip live region announcement)
-    this.#go(0, { announce: false });
+    this.#go(0);
   }
 
-  #go(newIndex, { announce = true } = {}) {
+  #go(to) {
     this.#cancelAnimation();
-    this.#index = newIndex;
+    this.#index = to;
     this.#updateDots();
-
-    if (announce) {
-      this.#liveRegion.textContent = this.#prompts[this.#index];
-    }
 
     const text = this.#prompts[this.#index];
 
-    if (this.#reducedMotion) {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
       this.#textarea.value = text;
       return;
     }
@@ -174,11 +137,7 @@ class PromptCycler extends HTMLElement {
 
   #updateDots() {
     this.#dots.forEach((dot, i) => {
-      if (i === this.#index) {
-        dot.setAttribute("aria-current", "step");
-      } else {
-        dot.removeAttribute("aria-current");
-      }
+      dot.ariaCurrent = i === this.#index ? "step" : null;
     });
   }
 }
