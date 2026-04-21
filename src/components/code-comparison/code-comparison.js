@@ -1,5 +1,6 @@
 const css = String.raw;
 const sheet = new CSSStyleSheet();
+
 sheet.replaceSync(css`
   @scope (code-comparison) {
     :scope {
@@ -38,13 +39,14 @@ sheet.replaceSync(css`
     }
   }
 `);
+
 document.adoptedStyleSheets.push(sheet);
+
+const DRAG_EVENTS = ["pointermove", "pointerup", "pointercancel"];
 
 class CodeComparison extends HTMLElement {
   #handle;
-  #controller;
   #position = 50;
-  #dragging = false;
 
   connectedCallback() {
     if (document.readyState === "loading") {
@@ -54,10 +56,6 @@ class CodeComparison extends HTMLElement {
     } else {
       this.#init();
     }
-  }
-
-  disconnectedCallback() {
-    this.#controller?.abort();
   }
 
   handleEvent(event) {
@@ -83,82 +81,71 @@ class CodeComparison extends HTMLElement {
     const after = this.querySelector('[slot="after"]');
     if (!before || !after) return;
 
-    this.#controller = new AbortController();
-    const { signal } = this.#controller;
-
     const divider = document.createElement("div");
 
     this.#handle = document.createElement("button");
     this.#handle.type = "button";
-    this.#handle.setAttribute("role", "separator");
-    this.#handle.setAttribute("aria-valuenow", "50");
-    this.#handle.setAttribute("aria-valuemin", "0");
-    this.#handle.setAttribute("aria-valuemax", "100");
-    this.#handle.setAttribute("aria-label", "Comparison slider");
+    this.#handle.role = "separator";
+    this.#handle.ariaLabel = "Comparison slider";
+    this.#handle.ariaOrientation = "vertical";
+    this.#handle.ariaValueMin = "0";
+    this.#handle.ariaValueMax = "100";
+    this.#handle.ariaValueNow = "50";
     this.#handle.innerHTML =
-      '<svg viewBox="0 0 10 14" fill="currentColor" aria-hidden="true"><circle  cx="3" cy="3" r="1.25"/><circle cx="7" cy="3" r="1.25"/><circle cx="3" cy="7" r="1.25"/><circle cx="7" cy="7" r="1.25"/><circle cx="3" cy="11" r="1.25"/><circle cx="7" cy="11" r="1.25"/></svg>';
+      '<svg viewBox="0 0 10 14" fill="currentColor" aria-hidden="true"><circle cx="3" cy="3" r="1.25"/><circle cx="7" cy="3" r="1.25"/><circle cx="3" cy="7" r="1.25"/><circle cx="7" cy="7" r="1.25"/><circle cx="3" cy="11" r="1.25"/><circle cx="7" cy="11" r="1.25"/></svg>';
 
     divider.append(this.#handle);
     after.before(divider);
 
-    this.#handle.addEventListener("pointerdown", this, { signal });
-    this.#handle.addEventListener("keydown", this, { signal });
+    this.#handle.addEventListener("pointerdown", this);
+    this.#handle.addEventListener("keydown", this);
   }
 
   #onPointerDown(event) {
     event.preventDefault();
-    this.#dragging = true;
     this.#handle.setPointerCapture(event.pointerId);
-    const { signal } = this.#controller;
-    this.#handle.addEventListener("pointermove", this, { signal });
-    this.#handle.addEventListener("pointerup", this, { signal });
-    this.#handle.addEventListener("pointercancel", this, { signal });
+    for (const type of DRAG_EVENTS) this.#handle.addEventListener(type, this);
   }
 
   #onPointerMove(event) {
-    if (!this.#dragging) return;
     const rect = this.getBoundingClientRect();
     const x = event.clientX - rect.left;
-    const percent = Math.round((x / rect.width) * 100);
-    this.#setPosition(percent);
+    this.#setPosition(Math.round((x / rect.width) * 100));
   }
 
   #onPointerUp() {
-    this.#dragging = false;
-    this.#handle.removeEventListener("pointermove", this);
-    this.#handle.removeEventListener("pointerup", this);
-    this.#handle.removeEventListener("pointercancel", this);
+    for (const type of DRAG_EVENTS) this.#handle.removeEventListener(type, this);
   }
 
   #onKeyDown(event) {
     const step = event.shiftKey ? 10 : 1;
-    let newPosition = this.#position;
+    let target = this.#position;
 
     switch (event.key) {
       case "ArrowLeft":
-        newPosition -= step;
+        target -= step;
         break;
       case "ArrowRight":
-        newPosition += step;
+        target += step;
         break;
       case "Home":
-        newPosition = 0;
+        target = 0;
         break;
       case "End":
-        newPosition = 100;
+        target = 100;
         break;
       default:
         return;
     }
 
     event.preventDefault();
-    this.#setPosition(newPosition);
+    this.#setPosition(target);
   }
 
   #setPosition(percent) {
     this.#position = Math.max(0, Math.min(100, percent));
     this.style.setProperty("--code-comparison-position", `${this.#position}%`);
-    this.#handle.setAttribute("aria-valuenow", String(this.#position));
+    this.#handle.ariaValueNow = String(this.#position);
   }
 }
 
