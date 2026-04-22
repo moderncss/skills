@@ -8,7 +8,6 @@
   }
 
   li {
-    all: unset;
     background-color: var(--color-bg-secondary);
     border-radius: var(--length-xs);
     container-type: inline-size;
@@ -32,13 +31,13 @@
   }
 
   ul {
-    all: unset;
     display: block grid;
     gap: var(--length);
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 15em), 1fr));
-    margin-block-start: var(--length-l);
+    list-style: none;
+    margin-block: var(--length-l) 0;
 
-    &:has(li:hover, li:focus-within) li:not(:hover, li:focus-within) {
+    &:has(li:hover, li:focus-within) li:not(:hover, :focus-within) {
       opacity: 0.55;
     }
   }

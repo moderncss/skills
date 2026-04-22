@@ -2,40 +2,42 @@ const css = String.raw;
 const sheet = new CSSStyleSheet();
 
 sheet.replaceSync(css`
-  @scope (code-comparison) {
-    :scope {
-      display: block grid;
-      position: relative;
-    }
+  @layer components {
+    @scope (code-comparison) {
+      :scope {
+        display: block grid;
+        position: relative;
+      }
 
-    [slot="before"],
-    [slot="after"] {
-      display: block grid;
-      grid-area: 1 / 1;
-    }
+      [slot="before"],
+      [slot="after"] {
+        display: block grid;
+        grid-area: 1 / 1;
+      }
 
-    [slot="after"] {
-      clip-path: inset(0 0 0 var(--code-comparison-position, 50%));
-    }
+      [slot="after"] {
+        clip-path: inset(0 0 0 var(--code-comparison-position, 50%));
+      }
 
-    div:nth-of-type(2) {
-      grid-area: 1 / 1;
-      inline-size: 0;
-      inset-inline-start: var(--code-comparison-position, 50%);
-      position: relative;
-      z-index: 2;
-    }
+      div:nth-of-type(2) {
+        grid-area: 1 / 1;
+        inline-size: 0;
+        inset-inline-start: var(--code-comparison-position, 50%);
+        position: relative;
+        z-index: 2;
+      }
 
-    button {
-      align-items: center;
-      cursor: col-resize;
-      display: block flex;
-      inset-block-start: 50%;
-      justify-content: center;
-      position: absolute;
-      touch-action: none;
-      translate: -50% -50%;
-      z-index: 3;
+      button {
+        align-items: center;
+        cursor: col-resize;
+        display: block flex;
+        inset-block-start: 50%;
+        justify-content: center;
+        position: absolute;
+        touch-action: none;
+        translate: -50% -50%;
+        z-index: 3;
+      }
     }
   }
 `);

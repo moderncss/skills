@@ -3,9 +3,11 @@ import SubLayout from "../layouts/SubLayout.astro";
 import { getEntry, render } from "astro:content";
 
 const entry = await getEntry("skill", "skill");
-const { Content } = await render(entry!);
+const { Content, headings } = await render(entry!);
+const heading = headings.find((h) => h.depth === 1);
+const title = `${heading?.text ?? entry!.data.name} - ModernCSS.AI`;
 ---
 
-<SubLayout title="llms.txt - ModernCSS.AI" description="Modern CSS rules for creating robust, responsive and accessible UIs.">
+<SubLayout title={title} description={entry!.data.description}>
   <Content />
 </SubLayout>

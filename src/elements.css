@@ -44,7 +44,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-fg);
   container: inline-size;
-  font-family: Recursive, system-ui;
+  font-family: Recursive, "Recursive Fallback", sans-serif;
   font-kerning: normal;
   font-optical-sizing: auto;
   font-size: var(--font-size);

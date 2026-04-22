@@ -2,27 +2,29 @@ const css = String.raw;
 const sheet = new CSSStyleSheet();
 
 sheet.replaceSync(css`
-  @scope (prompt-cycler) {
-    nav {
-      align-items: center;
-      display: block flex;
-      justify-content: center;
-    }
-
-    span {
-      > span {
-        appearance: none;
-        padding: 0;
+  @layer components {
+    @scope (prompt-cycler) {
+      nav {
+        align-items: center;
+        display: block flex;
+        justify-content: center;
       }
-    }
 
-    p {
-      block-size: 1px;
-      clip-path: inset(50%);
-      inline-size: 1px;
-      overflow: hidden;
-      position: absolute;
-      white-space: nowrap;
+      span {
+        > span {
+          appearance: none;
+          padding: 0;
+        }
+      }
+
+      p {
+        block-size: 1px;
+        clip-path: inset(50%);
+        inline-size: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
     }
   }
 `);
