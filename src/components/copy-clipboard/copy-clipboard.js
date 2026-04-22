@@ -2,55 +2,57 @@ const css = String.raw;
 const sheet = new CSSStyleSheet();
 
 sheet.replaceSync(css`
-  @scope (copy-clipboard) {
-    :scope {
-      position: relative;
-    }
-
-    textarea,
-    input[type="text"] {
-      anchor-name: --textarea;
-    }
-
-    button {
-      align-items: center;
-      bottom: calc(anchor(bottom) + var(--length-xs));
-      display: block flex;
-      min-inline-size: 7em;
-      opacity: 0;
-      place-content: center;
-      position: absolute;
-      position-anchor: --textarea;
-      right: calc(anchor(right) + var(--length-xs));
-      transition: opacity var(--duration) var(--timing-function);
-
-      :scope:is(:hover, :focus-within) & {
-        opacity: 1;
+  @layer components {
+    @scope (copy-clipboard) {
+      :scope {
+        position: relative;
       }
-    }
 
-    span {
-      align-items: center;
-      display: block flex;
-      gap: 0.25em;
-      transition: opacity var(--duration) var(--timing-function);
+      textarea,
+      input[type="text"] {
+        anchor-name: --textarea;
+      }
 
-      &[aria-hidden="true"] {
+      button {
+        align-items: center;
+        display: block flex;
+        inset-block-end: calc(anchor(bottom) + var(--length-xs));
+        inset-inline-end: calc(anchor(right) + var(--length-xs));
+        min-inline-size: 7em;
         opacity: 0;
-      }
-
-      &[aria-hidden="false"] {
-        opacity: 1;
-      }
-
-      &:nth-of-type(2) {
+        place-content: center;
         position: absolute;
-      }
-    }
+        position-anchor: --textarea;
+        transition: opacity var(--duration) var(--timing-function);
 
-    svg {
-      block-size: 1lh;
-      inline-size: 1lh;
+        :scope:is(:hover, :focus-within) & {
+          opacity: 1;
+        }
+      }
+
+      span {
+        align-items: center;
+        display: block flex;
+        gap: 0.25em;
+        transition: opacity var(--duration) var(--timing-function);
+
+        &[aria-hidden="true"] {
+          opacity: 0;
+        }
+
+        &[aria-hidden="false"] {
+          opacity: 1;
+        }
+
+        &:nth-of-type(2) {
+          position: absolute;
+        }
+      }
+
+      svg {
+        block-size: 1lh;
+        inline-size: 1lh;
+      }
     }
   }
 `);
