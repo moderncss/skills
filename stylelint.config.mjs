@@ -11,4 +11,10 @@ export default {
       customSyntax: "postcss-lit",
     },
   ],
+  referenceFiles: ["src/variables.css"],
+  rules: {
+    "no-unknown-custom-properties": true,
+    "no-unknown-animations": true,
+    "no-unknown-custom-media": true,
+  },
 };
