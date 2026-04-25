@@ -13,3 +13,6 @@ playwright-report/
 
 # macOS-specific files
 .DS_Store
+
+# IDE
+.vscode/
