@@ -1,8 +1,8 @@
 ---
 name: modern-css
-description: Helps with authoring and reviewing modern CSS for robust, responsive, and accessible UIs — cascade layers, @scope, :has(), nesting, container queries, fluid typography with clamp(), oklch() colors, light-dark() and color-scheme, and prefers-reduced-motion. Use this skill when the user asks things like "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or any CSS authoring, refactoring, or review task — even when they don't explicitly say "CSS".
+description: Helps with authoring and reviewing modern CSS for robust, responsive, and accessible UIs — cascade layers, @scope, :has(), nesting, container queries, fluid typography with clamp(), oklch() colors, light-dark() and color-scheme, logical properties, and prefers-reduced-motion. Use this skill when the user asks things like "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or any CSS authoring, refactoring, or review task — even when they don't explicitly say "CSS".
 metadata:
-  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, oklch
+  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, oklch, logical-properties
 ---
 
 # Modern CSS
@@ -224,6 +224,30 @@ button {
 ```
 
 ### Layout
+
+#### Flow-relative layout (`*-inline-*`, `*-block-*`, `cqi`/`vi`, `start`/`end`)
+
+- **Rule**: Use flow-relative properties (e.g. `padding-block-start`, `inset-inline`, `inline-size`), units (e.g. `cqi`, `cqb`, `vi`), and keywords (e.g. `text-align: start`) for layout.
+- **Constraint**: Avoid physical equivalents (e.g. `padding-top`, `width`, `cqw`, `vw`, `text-align: left`).
+- **Rationale**: Flexbox and grid already use inline/block axes; flow-relative layout keeps the rest of the box model consistent with them, and adapts automatically when writing mode or text direction changes.
+- **References**: [Logical properties and values on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Logical_properties_and_values).
+- **Example**:
+
+```css
+/* avoid */
+.card {
+  padding-top: 1rem;
+  font-size: 20vw;
+  text-align: left;
+}
+
+/* prefer */
+.card {
+  padding-block-start: 1rem;
+  font-size: 20vi;
+  text-align: start;
+}
+```
 
 #### Container queries and units (`@container`, `cqi` etc.)
 
