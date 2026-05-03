@@ -16,6 +16,7 @@
     "test": "playwright test"
   },
   "dependencies": {
+    "@sentry/astro": "^10.51.0",
     "astro": "6.1.8"
   },
   "devDependencies": {
