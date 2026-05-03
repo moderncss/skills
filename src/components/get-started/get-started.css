@@ -19,7 +19,7 @@
     div {
       position: relative;
 
-      & .info-popover {
+      .info-popover {
         inset-block-start: var(--length-xs);
         inset-inline-end: var(--length-xs);
         position: absolute;
