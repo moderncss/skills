@@ -118,7 +118,7 @@ h4 {
 code,
 pre {
   max-inline-size: 100%;
-  overflow-y: auto;
+  overflow-block: auto;
 }
 
 pre {
@@ -127,7 +127,7 @@ pre {
   line-height: 1;
   margin-block: 0;
   margin-inline: 0;
-  overflow-x: auto;
+  overflow-inline: auto;
   padding-block: var(--length);
   padding-inline: var(--length);
 
@@ -167,7 +167,7 @@ blockquote {
   list-style-position: inside;
   padding-inline-start: 0;
 
-  & :is(ul, ol, dl) {
+  :is(ul, ol, dl) {
     padding-inline-start: 0.5lh;
   }
 }
