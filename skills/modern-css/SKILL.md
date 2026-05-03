@@ -1,8 +1,8 @@
 ---
 name: modern-css
-description: Use this skill when writing CSS code or building UI components. It's modern CSS rules for robust, responsive and accessible UIs.
+description: Helps with authoring and reviewing modern CSS for robust, responsive, and accessible UIs — cascade layers, @scope, :has(), nesting, container queries, fluid typography with clamp(), oklch() colors, light-dark() and color-scheme, and prefers-reduced-motion. Use this skill when the user asks things like "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or any CSS authoring, refactoring, or review task — even when they don't explicitly say "CSS".
 metadata:
-  tags: css, modern, best practices, rules, guidelines
+  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, oklch
 ---
 
 # Modern CSS
@@ -11,7 +11,7 @@ metadata:
 
 The rules work best when you apply a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. The CSS features are within [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available. Thanks to [Interop](https://wpt.fyi/interop-2026), most are within Widely Available.
 
-The rules, constraints, and examples are **not intended to be prescriptive**. Use your best judgment and consider the specific needs of the project when applying them. However, if you use a rule, apply it consistently.
+When editing existing files, match the surrounding code's style. For new code, follow the rules below. Where two rules could both apply, apply both consistently rather than picking one.
 
 ## Rules
 
@@ -26,6 +26,12 @@ The rules, constraints, and examples are **not intended to be prescriptive**. Us
 - **Example**:
 
 ```css
+/* avoid */
+a {
+  text-decoration-skip-ink: auto;
+}
+
+/* prefer */
 @layer elements, components;
 
 @layer elements {
@@ -77,7 +83,7 @@ a {
 
 - **Rule**: Use `:has()` for relational styles.
 - **Constraint**: Avoid `.has-`-like class names (e.g. `.has-img {}`).
-- **Rationale**: Creates "smart" components that adapt to relationships.
+- **Rationale**: The relationship lives in CSS, with no JS or build-time class toggling needed when the DOM changes.
 - **References**: [`:has()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:has).
 - **Example**:
 
@@ -89,7 +95,7 @@ a {
 }
 ```
 
-#### Additive properties (`:not()` and `20em < width <= 40em )`)
+#### Additive properties (`:not()` and `20em < width <= 40em`)
 
 - **Rule**: Use `:not()` and ranged queries (e.g. `@media (20em < width <= 40em)`) to create additive styles.
 - **Constraint**: Avoid overriding styles (e.g. `div { margin: 1rem; &:first-child { margin-block-start: 0; } }`)
@@ -171,6 +177,13 @@ p {
 - **Example**:
 
 ```css
+/* avoid */
+:root {
+  --success: #2d7a3e;
+  --danger: hsl(0deg 70% 40%);
+}
+
+/* prefer */
 :root {
   --success: oklch(40% 0.15 150deg);
   --danger: oklch(40% 0.2 25deg);
@@ -254,11 +267,23 @@ nav {
 
 - **Rule**: Use `prefers-reduced-motion: no-preference` when applying large animations and transitions.
 - **Constraint**: Avoid `prefers-reduced-motion: reduce`.
-- **Rationale**: Respects a person's preferences for motion to prevent motion sickness and improve accessibility.
+- **Rationale**: Treats motion as opt-in: the absence of animation is the default, so no fallback is needed for users who haven't expressed a preference. Inverting this (`@media (prefers-reduced-motion: reduce)`) requires every animation to also ship a reduce-motion override, and it's easy to miss one.
 - **References**: [`prefers-reduced-motion` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion).
 - **Example**:
 
 ```css
+/* avoid */
+.hero {
+  animation: bounce-in 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    animation: none;
+  }
+}
+
+/* prefer */
 @media (prefers-reduced-motion: no-preference) {
   .hero {
     animation: bounce-in 0.5s ease;
@@ -266,11 +291,31 @@ nav {
 }
 ```
 
-## Example in practice
+## Applying these rules
 
-This site follows the rules. Study the implementation [on GitHub](https://github.com/moderncss/skills) for concrete examples of each:
+When asked to author, refactor, or review CSS:
+
+1. Identify which rules apply to the task.
+2. Read surrounding files to see which rules are already in use; match their patterns.
+3. Apply the rules consistently across the change set, not just at the touch points.
+
+## Gotchas
+
+Non-obvious traps that the rules above don't surface on their own:
+
+- **`clamp()` central values need a `rem` term:** `clamp(1.75rem, 1.5761rem + 0.8696cqi, 2.25rem)`, not `clamp(1.75rem, 5cqi, 2.25rem)`.
+- **Ranged queries must not overlap:** `width <= 20em` / `20em < width <= 40em` / `width > 40em`, not `width < 20em` / `width >= 20em`.
+- **`prefers-reduced-motion: no-preference` opts motion in, `reduce` opts motion out.** Reach for `no-preference`.
+- **`oklch()` not `hsl()` for theme colors.** HSL's lightness channel isn't perceptually uniform.
+- **`:has()` makes `.has-img`-style classes obsolete.** Don't add a class to track a relationship the DOM already expresses.
+
+## Examples
+
+This site follows the rules:
 
 - [`src/styles.css`](https://github.com/moderncss/skills/blob/main/src/styles.css) — `@layer`
 - [`src/variables.css`](https://github.com/moderncss/skills/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
 - [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`
 - [`src/components/signpost/signpost.css`](https://github.com/moderncss/skills/blob/main/src/components/signpost/signpost.css) — `@scope`
+
+When the skill is active, prefer matching patterns from the user's own files over fetching these examples.
