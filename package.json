@@ -16,12 +16,12 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "@sentry/astro": "^10.51.0",
     "astro": "6.1.8"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.8",
     "@playwright/test": "^1.59.1",
+    "@sentry/astro": "^10.51.0",
     "@spotlightjs/astro": "^3.2.6",
     "oxfmt": "^0.40.0",
     "oxlint": "^1.61.0",
