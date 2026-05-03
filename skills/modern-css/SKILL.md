@@ -1,8 +1,8 @@
 ---
 name: modern-css
-description: Helps with authoring and reviewing modern CSS for robust, responsive, and accessible UIs — cascade layers, @scope, :has(), nesting, container queries, fluid typography with clamp(), oklch() colors, light-dark() and color-scheme, logical properties, and prefers-reduced-motion. Use this skill when the user asks things like "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or any CSS authoring, refactoring, or review task — even when they don't explicitly say "CSS".
+description: Helps with authoring and reviewing modern CSS for robust, responsive, and accessible UIs — cascade layers, @scope, :has(), nesting, container queries, fluid typography with clamp(), oklch() colors, light-dark() and color-scheme, logical properties, subgrid, and prefers-reduced-motion. Use this skill when the user asks things like "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or any CSS authoring, refactoring, or review task — even when they don't explicitly say "CSS".
 metadata:
-  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, oklch, logical-properties
+  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, oklch, logical-properties, subgrid
 ---
 
 # Modern CSS
@@ -285,6 +285,27 @@ nav {
 }
 ```
 
+#### Aligning nested grids (`subgrid`)
+
+- **Rule**: Use `subgrid` on `grid-template-rows` or `grid-template-columns` to align nested grid items with an ancestor grid.
+- **Constraint**: Avoid fixed heights, JS measurement, or flattening the DOM to make sibling grids align.
+- **Rationale**: Sibling components keep their internal markup while still aligning at parent grid boundaries; without `subgrid`, alignment falls back to fixed heights, JS measurement, or flattened DOM.
+- **References**: [`subgrid` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Subgrid).
+- **Example**:
+
+```css
+.card {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+
+  > .content {
+    display: grid;
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+  }
+}
+```
+
 ### Motion
 
 #### Respecting motion preferences (`prefers-reduced-motion`)
@@ -332,6 +353,7 @@ Non-obvious traps that the rules above don't surface on their own:
 - **`prefers-reduced-motion: no-preference` opts motion in, `reduce` opts motion out.** Reach for `no-preference`.
 - **`oklch()` not `hsl()` for theme colors.** HSL's lightness channel isn't perceptually uniform.
 - **`:has()` makes `.has-img`-style classes obsolete.** Don't add a class to track a relationship the DOM already expresses.
+- **`grid-template-rows: subgrid` only inherits tracks the child claims.** Pair it with `grid-row: span N` so the child occupies the parent rows; without `span`, the subgrid child gets one row and aligns with nothing.
 
 ## Examples
 
