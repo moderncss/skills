@@ -57,6 +57,30 @@ a {
 }
 ```
 
+#### Limiting scope (`@scope ... to`)
+
+- **Rule**: Use a scope limit (`@scope (outer) to (inner)`) when a scoped component hosts content it doesn't own — embedded components, slot content, or user content.
+- **Constraint**: Avoid base `@scope` over a component that holds slot content, embedded components, or user-generated HTML.
+- **Rationale**: Stops the outer scope's styles bleeding into nested components or projected content; descendants past the limit keep their own scope's styles. Sometimes called donut scoping.
+- **References**: [`@scope` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope).
+- **Example**:
+
+```css
+/* avoid */
+@scope (.card) {
+  a {
+    color: var(--blue);
+  }
+}
+
+/* prefer */
+@scope (.card) to (.content) {
+  a {
+    color: var(--blue);
+  }
+}
+```
+
 #### Nesting rules and at-rules (`&`)
 
 - **Rule**: Use `&` for nesting rules and at-rules.
