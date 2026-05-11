@@ -5,6 +5,9 @@ export default {
     "stylelint-config-modern",
     "stylelint-config-alphabetical-order",
   ],
+  reportDescriptionlessDisables: true,
+  reportInvalidScopeDisables: true,
+  reportNeedlessDisables: true,
   overrides: [
     {
       files: ["**/*.js"],
