@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
-import { z } from "zod";
+import { z } from "astro/zod";
 
 const skill = defineCollection({
   loader: glob({ pattern: "SKILL.md", base: "skills/modern-css" }),

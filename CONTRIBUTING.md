@@ -2,18 +2,18 @@
 
 Thank you for wanting to contribute!
 
-Use [Bun](https://bun.sh):
+Use [npm](https://docs.npmjs.com):
 
 ```sh
-bun install
+npm install
 ```
 
 ## Commands
 
 | Command           | Description              |
 | ----------------- | ------------------------ |
-| `bun run dev`     | Start dev server         |
-| `bun run check`   | Linting and formatting   |
-| `bun run test`    | Playwright tests         |
-| `bun run preview` | Preview production build |
-| `bun run build`   | Production build         |
+| `npm run dev`     | Start dev server         |
+| `npm run check`   | Linting and formatting   |
+| `npm run test`    | Playwright tests         |
+| `npm run preview` | Preview production build |
+| `npm run build`   | Production build         |

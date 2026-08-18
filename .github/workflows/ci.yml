@@ -12,11 +12,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 22
-      - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: latest
+          cache: npm
 
-      - run: bun install
-      - run: bunx playwright install --with-deps chromium
-      - run: bun run check
-      - run: bun run test
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run check
+      - run: npm test
