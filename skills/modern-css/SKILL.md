@@ -153,6 +153,23 @@ nav {
 }
 ```
 
+#### Auto-growing text areas (`field-sizing: content`)
+
+- **Rule**: Use `field-sizing: content` on text areas, with an explicit `inline-size` and `min-block-size`/`max-block-size` in `lh`.
+- **Constraint**: Avoid fixed block sizes (e.g. `block-size: 8rem`) and `field-sizing: content` on inputs, which shrink to their value's width.
+- **Rationale**: Typed text stays in view instead of scrolling inside a fixed box, and `lh` bounds follow the line height as the type scales.
+- **References**: [`field-sizing` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/field-sizing).
+- **Example**:
+
+```css
+textarea {
+  field-sizing: content;
+  inline-size: 100%;
+  max-block-size: 12lh;
+  min-block-size: 3lh;
+}
+```
+
 ### Typography
 
 #### Fluid type sizes (`clamp()`)
@@ -272,6 +289,7 @@ Traps neither the rules above nor Modern Web Guidance surface:
 
 - **`clamp()` central values need a `rem` term:** `clamp(1.75rem, 1.5761rem + 0.8696cqi, 2.25rem)`, not the `clamp(1rem, 5cqi, 2.5rem)` form Modern Web Guidance's `fluid-scaling` guide shows.
 - **`grid-template-rows: subgrid` only inherits tracks the child claims.** Pair it with `grid-row: span N`; without the span the child gets one row and aligns with nothing. Modern Web Guidance's `css-layout` guide shows the span without saying why.
+- **`container-type` already applies containment:** a component with `container-type: inline-size` has layout, style and inline-size containment, so it needs no `contain`. The `contain: layout style paint` that Modern Web Guidance's `performance` guide puts on widgets adds paint containment, which clips overflowing descendants like `overflow: clip`.
 
 ## Examples
 
@@ -279,7 +297,7 @@ This site follows the rules:
 
 - [`src/styles.css`](https://github.com/moderncss/skills/blob/main/src/styles.css) — `@layer`
 - [`src/variables.css`](https://github.com/moderncss/skills/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
-- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`, two-value `display`
+- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`, two-value `display`, `field-sizing`
 - [`src/components/signpost/signpost.css`](https://github.com/moderncss/skills/blob/main/src/components/signpost/signpost.css) — `@scope`
 
 Fetch one only when the project has no CSS of its own to match.
