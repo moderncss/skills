@@ -111,7 +111,7 @@ class PromptCycler extends HTMLElement {
 
     const text = this.#prompts[this.#index];
 
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) {
       this.#textarea.value = text;
       return;
     }

@@ -1,17 +1,21 @@
 ---
 name: modern-css
-description: Helps with authoring and reviewing modern CSS for robust, responsive, and accessible UIs — cascade layers, @scope, :has(), nesting, container queries, fluid typography with clamp(), oklch() colors, light-dark() and color-scheme, logical properties, subgrid, and prefers-reduced-motion. Use this skill when the user asks things like "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or any CSS authoring, refactoring, or review task — even when they don't explicitly say "CSS".
+description: Apply these opinionated rules whenever CSS is written, refactored, or reviewed, so agents and people write it consistently. They sit on top of the Modern Web Guidance skill and settle the choices it leaves open across architecture, layout, typography, colors, and motion. Use this skill when the user asks things like "set up the base styles for this project", "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or "refactor my styles to modern CSS", when they ask to build a page or component, and for any other CSS task — even when they don't say "CSS".
+license: MIT
+compatibility: Requires the modern-web-guidance skill (npx skills add GoogleChrome/modern-web-guidance).
 metadata:
-  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, oklch, logical-properties, subgrid
+  tags: css, modern-css, baseline, progressive-enhancement, accessibility, responsive-design, container-queries, cascade-layers, scope, oklch, logical-properties
 ---
 
 # Modern CSS
 
-> Modern CSS rules for creating robust, responsive and accessible UIs.
+> Opinionated rules for modern CSS, so agents and people write it consistently.
 
-The rules work best when you apply a **[progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement)** approach. The CSS features are within [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available. Thanks to [Interop](https://wpt.fyi/interop-2026), most are within Widely Available.
+These rules sit on top of the [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance) skill, which must be installed. It explains what each feature does, when it applies, and how to fall back. It leaves choices open: which color space, whether to scope, when to nest, how to size type. These rules settle them; retrieve its guides for everything else. Where the two disagree, the rule wins.
 
-When editing existing files, match the surrounding code's style. For new code, follow the rules below. Where two rules could both apply, apply both consistently rather than picking one.
+The [stylelint-config-modern](https://www.npmjs.com/package/stylelint-config-modern) package enforces every rule a linter can. This skill gets agents writing those from the start, and carries the rest.
+
+Browser support policy: features within [Baseline](https://developer.mozilla.org/en-US/docs/Glossary/Baseline/Compatibility) Newly Available are used natively, without `@supports` fallbacks, as [progressive enhancement](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement).
 
 ## Rules
 
@@ -19,19 +23,13 @@ When editing existing files, match the surrounding code's style. For new code, f
 
 #### Organizing styles (`@layer`)
 
-- **Rule**: Use `@layer` to organize groups of styles.
-- **Constraint**: Avoid global styles outside of layers.
-- **Rationale**: Prevents style conflicts through managing specificity.
+- **Rule**: Put every style rule in a `@layer`.
+- **Constraint**: Avoid unlayered element defaults and resets.
+- **Rationale**: An unlayered rule outranks every layer; with everything layered, layer order alone decides conflicts.
 - **References**: [`@layer` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer).
 - **Example**:
 
 ```css
-/* avoid */
-a {
-  text-decoration-skip-ink: auto;
-}
-
-/* prefer */
 @layer elements, components;
 
 @layer elements {
@@ -43,49 +41,25 @@ a {
 
 #### Encapsulating styles (`@scope`)
 
-- **Rule**: Use `@scope` to encapsulate styles.
-- **Constraint**: Avoid custom element and components styles that are outside of a scope.
-- **Rationale**: Prevents styles from bleeding into other components because selectors are scoped to the component.
+- **Rule**: Use `@scope` for every component's styles, with a limit (`@scope (outer) to (inner)`) where the component hosts content it doesn't own — embedded components, slot content, or user content.
+- **Constraint**: Avoid component styles outside a scope, and an unlimited scope over content the component doesn't own.
+- **Rationale**: Scoped selectors can't bleed into other components, and the limit stops the outer scope's styles reaching projected content. Sometimes called donut scoping.
 - **References**: [`@scope` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope).
 - **Example**:
 
 ```css
-@scope (.card) {
+@scope (.card) to (.content) {
   h2 {
     font-size: var(--large);
   }
 }
 ```
 
-#### Limiting scope (`@scope ... to`)
-
-- **Rule**: Use a scope limit (`@scope (outer) to (inner)`) when a scoped component hosts content it doesn't own — embedded components, slot content, or user content.
-- **Constraint**: Avoid base `@scope` over a component that holds slot content, embedded components, or user-generated HTML.
-- **Rationale**: Stops the outer scope's styles bleeding into nested components or projected content; descendants past the limit keep their own scope's styles. Sometimes called donut scoping.
-- **References**: [`@scope` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope).
-- **Example**:
-
-```css
-/* avoid */
-@scope (.card) {
-  a {
-    color: var(--blue);
-  }
-}
-
-/* prefer */
-@scope (.card) to (.content) {
-  a {
-    color: var(--blue);
-  }
-}
-```
-
 #### Nesting rules and at-rules (`&`)
 
-- **Rule**: Use `&` for nesting rules and at-rules.
+- **Rule**: Nest rules and at-rules inside their parent rule; write `&` where the nested selector attaches to the parent (`&:hover`) and omit it for combinators (`b`, not `& b`).
 - **Constraint**: Avoid unnested selectors (e.g. `a {} a:hover {}`).
-- **Rationale**: Clarifies the relationship between the nested selector and the parent selector.
+- **Rationale**: Keeps a rule's states and queries beside it in one block, and stylelint-config-modern enforces the implicit `&` form.
 - **References**: [`&` nesting selector on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector).
 - **Example**:
 
@@ -97,58 +71,85 @@ a {
     text-decoration: underline;
   }
 
-  @container (width > 20em ) {
-    place-self: center;
+  code {
+    font-variant-numeric: tabular-nums;
   }
 }
 ```
 
-#### Relational styles (`:has()`)
+#### Ranged queries (`20em < width <= 40em`)
 
-- **Rule**: Use `:has()` for relational styles.
-- **Constraint**: Avoid `.has-`-like class names (e.g. `.has-img {}`).
-- **Rationale**: The relationship lives in CSS, with no JS or build-time class toggling needed when the DOM changes.
-- **References**: [`:has()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:has).
+- **Rule**: Use range syntax for size queries (e.g. `@container (20em < width <= 40em)`), with ranges that don't overlap.
+- **Constraint**: Avoid `min-width`/`max-width` and overlapping ranges (e.g. `width <= 20em` alongside `width >= 20em`, which both match at `20em`).
+- **Rationale**: Each size lands in exactly one condition, so no condition has to override another.
+- **References**: [Media query range syntax on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries#syntax_improvements_in_level_4).
 - **Example**:
 
 ```css
 .card {
-  &:has(img) {
-    grid-template-rows: auto 1fr;
+  @container (width <= 20em) {
+    grid-template-columns: 1fr;
+  }
+
+  @container (20em < width <= 40em) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @container (width > 40em) {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 ```
 
-#### Additive properties (`:not()` and `20em < width <= 40em`)
+### Layout
 
-- **Rule**: Use `:not()` and ranged queries (e.g. `@media (20em < width <= 40em)`) to create additive styles.
-- **Constraint**: Avoid overriding styles (e.g. `div { margin: 1rem; &:first-child { margin-block-start: 0; } }`)
-- **Rationale**: Simplifies the mental model because you don't have to keep track of which styles are being overridden.
-- **References**: [`:not()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/:not), [media query range syntax on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_media_queries/Using_media_queries#syntax_improvements_in_level_4).
+#### Flow-relative layout (`*-inline-*`, `*-block-*`, `cqi`/`vi`, `start`/`end`)
+
+- **Rule**: Use flow-relative properties (e.g. `padding-block-start`, `inset-inline`, `inline-size`), units (e.g. `cqi`, `cqb`, `vi`), and keywords (e.g. `text-align: start`) for layout.
+- **Constraint**: Avoid physical equivalents (e.g. `padding-top`, `width`, `cqw`, `vw`, `text-align: left`), even where the layout would never flip.
+- **Rationale**: Keeps the box model on the axes flexbox and grid already use, and stylelint-config-modern enforces it.
+- **References**: [Logical properties and values on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Logical_properties_and_values).
 - **Example**:
 
 ```css
 .card {
-  /* Apply to all conditions */
-  color: red;
+  max-inline-size: 60ch;
+  padding-block-start: 2cqi;
+  text-align: start;
+}
+```
 
-  /* Apply based on the selector */
-  &:not(:first-child) {
-    margin-block-start: var(--medium);
-  }
+#### Two-value display (`display: block flex`)
 
-  /* Apply based on non-overlapping container conditions */
-  @container example (width <= 20em) {
-    background-color: var(--primary);
-  }
+- **Rule**: Use the two-value `display` syntax (e.g. `display: block flex`, `display: inline grid`).
+- **Constraint**: Avoid the single-value keywords (e.g. `display: block`, `display: flex`, `display: inline-block`).
+- **Rationale**: Separates how the box sits in its parent from how its children lay out, so `inline flex` and `inline flow-root` replace the special-case keywords `inline-flex` and `inline-block`.
+- **References**: [Multi-keyword `display` syntax on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Display/Multi-keyword_syntax).
+- **Example**:
 
-  @container example (20em < width <= 40em ) {
-    background-color: var(--secondary);
-  }
+```css
+nav {
+  display: block flex;
+}
 
-  @container example (width > 40em ) {
-    background-color: var(--tertiary);
-  }
+.card {
+  display: block grid;
+}
+```
+
+#### Fluid spacing (`cqi`)
+
+- **Rule**: Size spacing with container units (e.g. `padding: 2cqi`), clamped where it needs a floor or ceiling.
+- **Constraint**: Avoid fixed spacing (e.g. `padding-block: 16px`, `margin-inline: 1rem`).
+- **Rationale**: Spacing scales with the container, so components adapt wherever they're placed instead of at breakpoints, which leave seams.
+- **References**: [Container query length units on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/).
+- **Example**:
+
+```css
+.card {
+  container: card / inline-size;
+  gap: 2cqi;
+  padding: clamp(1rem, 0.5rem + 2cqi, 2rem);
 }
 ```
 
@@ -156,11 +157,10 @@ a {
 
 #### Fluid type sizes (`clamp()`)
 
-- **Rule**: Use `clamp()` for font sizes to create harmonious rhythmic scales that are appropriate to the screen size, e.g. Major Second (1.125) on narrow viewports and Major Third (1.25) wide ones.
-- **Constraint**: Avoid fixed font sizes (e.g., `px`, `rem`) and central values without a `rem` addition (e.g. `clamp(1.75rem, 5cqi, 2.25rem)`).
-- **Rationale**: Ensures text is appropriately sized across different viewport sizes and can be zoomed for accessibility.
-- **References**: [`clamp()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/) and [Designing with fluid type scales
-  ](https://utopia.fyi/blog/designing-with-fluid-type-scales).
+- **Rule**: Use `clamp()` with container units for font sizes, on a type scale whose ratio grows with the container, e.g. Major Second (1.125) on narrow containers and Major Third (1.25) on wide ones.
+- **Constraint**: Avoid fixed font sizes (e.g. `px`, `rem`) and central values without a `rem` term (e.g. `clamp(1.75rem, 5cqi, 2.25rem)`).
+- **Rationale**: Sizes text to its container rather than at breakpoints, and the `rem` term keeps zoom working.
+- **References**: [`clamp()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/clamp), [Designing with fluid type scales](https://utopia.fyi/blog/designing-with-fluid-type-scales).
 - **Example**:
 
 ```css
@@ -172,9 +172,9 @@ a {
 
 #### Widow and orphan words (`text-wrap`)
 
-- **Rule**: Use `text-wrap` with `pretty` or `balance` to avoid widow and orphan words.
+- **Rule**: Use `text-wrap: balance` on headings and `text-wrap: pretty` on all other text.
 - **Constraint**: Avoid default wrapping outside of inputs and text areas.
-- **Rationale**: Improves the readability and aesthetics of text blocks.
+- **Rationale**: Removes widows and orphans by default rather than where someone remembered to opt in.
 - **References**: [`text-wrap` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap).
 - **Example**:
 
@@ -185,7 +185,7 @@ h3 {
   text-wrap: balance;
 }
 
-p {
+body {
   text-wrap: pretty;
 }
 ```
@@ -196,137 +196,45 @@ p {
 
 - **Rule**: Use `oklch()` for all colors.
 - **Constraint**: Avoid `hex`, `rgb()`, `hsl()` and other color formats.
-- **Rationale**: Easier to maintain perceptual uniform lightness to ensure text is accessible regardless of background color.
+- **Rationale**: Lightness is perceptually uniform, so text contrast holds across hues.
 - **References**: [`oklch()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch).
 - **Example**:
 
 ```css
-/* avoid */
-:root {
-  --success: #2d7a3e;
-  --danger: hsl(0deg 70% 40%);
-}
-
-/* prefer */
 :root {
   --success: oklch(40% 0.15 150deg);
   --danger: oklch(40% 0.2 25deg);
 }
 ```
 
-#### Respecting color preferences (`color-scheme`)
+#### Respecting color preferences (`light-dark()`)
 
-- **Rule**: Use `color-scheme` and `light-dark()` to support color schemes.
-- **Constraint**: Avoid hardcoding colors that don't adapt to light and dark modes.
-- **Rationale**: Improves accessibility by respecting a person's preference for light or dark mode.
-- **References**: [`color-scheme` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme), [`light-dark()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark).
+- **Rule**: Use `light-dark()` for every color that differs between light and dark schemes.
+- **Constraint**: Avoid `prefers-color-scheme` blocks that redeclare colors, and colors that don't adapt.
+- **Rationale**: Each token carries both values in one place, so no scheme can be missed when a color changes.
+- **References**: [`light-dark()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark).
 - **Example**:
 
 ```css
-body {
-  color-scheme: light dark;
-  background-color: light-dark(oklch(98% 0.03 250deg), oklch(14% 0 0deg));
+:root {
+  --surface: light-dark(oklch(98% 0 0deg), oklch(16% 0 0deg));
+  --text: light-dark(oklch(35% 0 0deg), oklch(75% 0 0deg));
 }
 ```
 
 #### Relative color functions (`oklch(from /* .. */)` & `color-mix()` )
 
-- **Rule**: Use relative color syntax (e.g. `oklch(from var(--primary) l + 10%)`) and functions (e.g. `color-mix()`) to create color relationships.
-- **Constraint**: Avoid hardcoding colors that relate to other colors.
-- **Rationale**: Creates a cohesive color palette that is easier to maintain and adjust.
+- **Rule**: Derive related colors with relative color syntax (e.g. `oklch(from var(--primary) l c calc(h - 10deg))`) or `color-mix()` in `oklab`.
+- **Constraint**: Avoid hardcoding colors that relate to other colors, and lightness-only moves on saturated colors (e.g. `oklch(from var(--primary) 90% c h)`).
+- **Rationale**: Related colors follow their source when it changes.
 - **References**: [relative colors on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors), [`color-mix()` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix).
 - **Example**:
 
 ```css
-button {
-  background-color: var(--primary);
-
-  &:hover {
-    background-color: oklch(from var(--primary) l c calc(h - 10deg));
-  }
-}
-```
-
-### Layout
-
-#### Flow-relative layout (`*-inline-*`, `*-block-*`, `cqi`/`vi`, `start`/`end`)
-
-- **Rule**: Use flow-relative properties (e.g. `padding-block-start`, `inset-inline`, `inline-size`), units (e.g. `cqi`, `cqb`, `vi`), and keywords (e.g. `text-align: start`) for layout.
-- **Constraint**: Avoid physical equivalents (e.g. `padding-top`, `width`, `cqw`, `vw`, `text-align: left`).
-- **Rationale**: Flexbox and grid already use inline/block axes; flow-relative layout keeps the rest of the box model consistent with them, and adapts automatically when writing mode or text direction changes.
-- **References**: [Logical properties and values on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Logical_properties_and_values).
-- **Example**:
-
-```css
-/* avoid */
-.card {
-  padding-top: 1rem;
-  font-size: 20vw;
-  text-align: left;
-}
-
-/* prefer */
-.card {
-  padding-block-start: 1rem;
-  font-size: 20vi;
-  text-align: start;
-}
-```
-
-#### Container queries and units (`@container`, `cqi` etc.)
-
-- **Rule**: Use container queries and units (e.g. `cqi`, `cqb`) for responsive layouts.
-- **Constraint**: Avoid fixed units for spacing (e.g. `padding-block: 16px`, `margin-inline: 1rem`) as they create hard edges and seams.
-- **Rationale**: Improves modularity and reusability as components adapt to their container size, and work across all device sizes not just a few.
-- **References**: [`container` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/container), [container query length units on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/) and [Designing with fluid type scales
-  ](https://utopia.fyi/blog/designing-with-fluid-type-scales).
-- **Example**:
-
-```css
-.card {
-  container: card / inline-size;
-  padding: 2cqi;
-
-  p {
-    @container card (width > 30cqi) {
-      place-self: center;
-    }
-  }
-}
-```
-
-#### Intrinsic sizing (`*-content`)
-
-- **Rule**: Use intrinsic sizing (e.g. `max-inline-size: fit-content`, `block-size: max-content`).
-- **Constraint**: Avoid fixed sizes (e.g. `width: 300px`, `height: 200px`) for content elements.
-- **Rationale**: Improves flexibility and prevents overflow issues as content determines its own size.
-- **References**: [`fit-content` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/fit-content), [`max-content` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/max-content).
-- **Example**:
-
-```css
-nav {
-  max-inline-size: fit-content;
-}
-```
-
-#### Aligning nested grids (`subgrid`)
-
-- **Rule**: Use `subgrid` on `grid-template-rows` or `grid-template-columns` to align nested grid items with an ancestor grid.
-- **Constraint**: Avoid fixed heights, JS measurement, or flattening the DOM to make sibling grids align.
-- **Rationale**: Sibling components keep their internal markup while still aligning at parent grid boundaries; without `subgrid`, alignment falls back to fixed heights, JS measurement, or flattened DOM.
-- **References**: [`subgrid` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Grid_layout/Subgrid).
-- **Example**:
-
-```css
-.card {
-  display: grid;
-  grid-template-rows: auto auto auto 1fr;
-
-  > .content {
-    display: grid;
-    grid-row: span 4;
-    grid-template-rows: subgrid;
-  }
+:root {
+  --primary: oklch(55% 0.25 350deg);
+  --primary-hover: oklch(from var(--primary) l c calc(h - 10deg));
+  --primary-tint: color-mix(in oklab, var(--primary), oklch(100% 0 0deg) 80%);
 }
 ```
 
@@ -336,23 +244,11 @@ nav {
 
 - **Rule**: Use `prefers-reduced-motion: no-preference` when applying large animations and transitions.
 - **Constraint**: Avoid `prefers-reduced-motion: reduce`.
-- **Rationale**: Treats motion as opt-in: the absence of animation is the default, so no fallback is needed for users who haven't expressed a preference. Inverting this (`@media (prefers-reduced-motion: reduce)`) requires every animation to also ship a reduce-motion override, and it's easy to miss one.
+- **Rationale**: Motion becomes opt-in, so no animation needs a reduced-motion override. With `reduce`, every animation needs one, and it's easy to miss one.
 - **References**: [`prefers-reduced-motion` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion).
 - **Example**:
 
 ```css
-/* avoid */
-.hero {
-  animation: bounce-in 0.5s ease;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero {
-    animation: none;
-  }
-}
-
-/* prefer */
 @media (prefers-reduced-motion: no-preference) {
   .hero {
     animation: bounce-in 0.5s ease;
@@ -364,20 +260,18 @@ nav {
 
 When asked to author, refactor, or review CSS:
 
-1. Identify which rules apply to the task.
+1. Identify which rules apply to the task; where several do, apply them all.
 2. Read surrounding files to see which rules are already in use; match their patterns.
 3. Apply the rules consistently across the change set, not just at the touch points.
+4. Retrieve the Modern Web Guidance guides for the task and apply them within these rules, skipping their fallbacks under the browser support policy above.
+5. If the project runs Stylelint with stylelint-config-modern, run it on the changed files and fix what it reports before finishing.
 
 ## Gotchas
 
-Non-obvious traps that the rules above don't surface on their own:
+Traps neither the rules above nor Modern Web Guidance surface:
 
-- **`clamp()` central values need a `rem` term:** `clamp(1.75rem, 1.5761rem + 0.8696cqi, 2.25rem)`, not `clamp(1.75rem, 5cqi, 2.25rem)`.
-- **Ranged queries must not overlap:** `width <= 20em` / `20em < width <= 40em` / `width > 40em`, not `width < 20em` / `width >= 20em`.
-- **`prefers-reduced-motion: no-preference` opts motion in, `reduce` opts motion out.** Reach for `no-preference`.
-- **`oklch()` not `hsl()` for theme colors.** HSL's lightness channel isn't perceptually uniform.
-- **`:has()` makes `.has-img`-style classes obsolete.** Don't add a class to track a relationship the DOM already expresses.
-- **`grid-template-rows: subgrid` only inherits tracks the child claims.** Pair it with `grid-row: span N` so the child occupies the parent rows; without `span`, the subgrid child gets one row and aligns with nothing.
+- **`clamp()` central values need a `rem` term:** `clamp(1.75rem, 1.5761rem + 0.8696cqi, 2.25rem)`, not the `clamp(1rem, 5cqi, 2.5rem)` form Modern Web Guidance's `fluid-scaling` guide shows.
+- **`grid-template-rows: subgrid` only inherits tracks the child claims.** Pair it with `grid-row: span N`; without the span the child gets one row and aligns with nothing. Modern Web Guidance's `css-layout` guide shows the span without saying why.
 
 ## Examples
 
@@ -385,7 +279,7 @@ This site follows the rules:
 
 - [`src/styles.css`](https://github.com/moderncss/skills/blob/main/src/styles.css) — `@layer`
 - [`src/variables.css`](https://github.com/moderncss/skills/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
-- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`
+- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`, two-value `display`
 - [`src/components/signpost/signpost.css`](https://github.com/moderncss/skills/blob/main/src/components/signpost/signpost.css) — `@scope`
 
-When the skill is active, prefer matching patterns from the user's own files over fetching these examples.
+Fetch one only when the project has no CSS of its own to match.

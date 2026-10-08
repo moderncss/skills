@@ -12,7 +12,7 @@ test.describe("copy button", () => {
 
     // Wait for the initial auto-type to finish before copying
     const textarea = promptCycler.locator("textarea");
-    await expect(textarea).toHaveValue(/you write\.$/, { timeout: 10_000 });
+    await expect(textarea).toHaveValue(/project\.$/, { timeout: 10_000 });
 
     await copyBtn.click();
 

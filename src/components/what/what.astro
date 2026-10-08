@@ -4,16 +4,20 @@ import Signpost from "../signpost/signpost.astro";
 
 <section class="what">
   <h2>What are the rules</h2>
-  <p>14 rules. 5 areas. Each with a constraint, rationale and code example.</p>
   <ul>
     <li>
       <h3><a href="/skill#architecture">Architecture</a></h3>
       <p>
-        Manage specificity with <code>@layer</code>, encapsulated styles with <code
+        Specificity with <code>@layer</code>, encapsulation with <code
           >@scope</code
-        >, nesting with <code>&amp;</code> and relational styles with <code
-          >:has()</code
-        >
+        >, nesting, and ranged queries
+      </p>
+    </li>
+    <li>
+      <h3><a href="/skill#layout">Layout</a></h3>
+      <p>
+        Flow-relative layouts, two-value <code>display</code>, and fluid spacing
+        with container units
       </p>
     </li>
     <li>
@@ -29,14 +33,6 @@ import Signpost from "../signpost/signpost.astro";
       <p>
         Perceptually uniform lightness with <code>oklch()</code>, color scheme
         support with <code>light-dark()</code>, and relative colors
-      </p>
-    </li>
-    <li>
-      <h3><a href="/skill#layout">Layout</a></h3>
-      <p>
-        Flow-relative layouts, nested grids with <code>subgrid</code>, container
-        queries and units, and intrinsic sizing with <code>fit-content</code> and
-        <code>max-content</code>
       </p>
     </li>
     <li>

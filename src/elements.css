@@ -145,6 +145,7 @@ code {
     "CASL" 0,
     "CRSV" 0.5,
     "MONO" 1;
+  hyphens: none;
 
   &:not(pre code) {
     background-color: var(--color-bg-secondary);
@@ -255,7 +256,7 @@ textarea {
 }
 
 textarea {
-  min-block-size: calc(3lh + (var(--length) * 2));
+  min-block-size: calc(2lh + (var(--length) * 2));
   scrollbar-gutter: stable;
 }
 

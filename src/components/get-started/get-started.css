@@ -57,7 +57,7 @@
   }
 
   label {
-    &:last-of-type {
+    &:not(:first-of-type) {
       margin-block-start: var(--length);
     }
   }

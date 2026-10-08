@@ -6,6 +6,6 @@
   p {
     font-size: var(--font-size-xl);
     font-weight: 300;
-    max-inline-size: 46ch;
+    max-inline-size: 52ch;
   }
 }

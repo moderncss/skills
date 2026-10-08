@@ -12,7 +12,7 @@ test.describe("prompt cycler", () => {
     await expect(prevBtn).toBeVisible();
 
     // Wait for the initial auto-type to finish
-    await expect(textarea).toHaveValue(/you write\.$/, { timeout: 10_000 });
+    await expect(textarea).toHaveValue(/project\.$/, { timeout: 10_000 });
     const initialValue = await textarea.inputValue();
 
     // Click next to go to prompt 2
@@ -21,7 +21,7 @@ test.describe("prompt cycler", () => {
 
     // Click next to go to prompt 3
     await nextBtn.click();
-    await expect(textarea).toHaveValue(/Available\.$/, { timeout: 10_000 });
+    await expect(textarea).toHaveValue(/responsive\.$/, { timeout: 10_000 });
 
     const prompt3Value = await textarea.inputValue();
 
@@ -85,7 +85,7 @@ test.describe("prompt cycler", () => {
     const nextBtn = page.getByRole("button", { name: "Next prompt" });
 
     // Wait for the initial auto-type to finish
-    await expect(textarea).toHaveValue(/you write\.$/, { timeout: 10_000 });
+    await expect(textarea).toHaveValue(/project\.$/, { timeout: 10_000 });
     const initialValue = await textarea.inputValue();
 
     // Click next to start typewriter for prompt 2
@@ -114,7 +114,7 @@ test.describe("prompt cycler", () => {
     await expect(textarea).toBeVisible();
 
     const value = await textarea.inputValue();
-    expect(value).toContain("Fetch");
+    expect(value).toContain("Set up the base styles");
 
     // Nav should not exist since JS is disabled
     const nav = page.getByRole("navigation", { name: "Prompt navigation" });
