@@ -1,4 +1,4 @@
-@scope (aside.lint) {
+@scope (section.lint) {
   :scope {
     border: var(--line-length) solid var(--color-line);
     border-radius: var(--length-xs);

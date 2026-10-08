@@ -22,19 +22,19 @@ const withRulesCode = `@layer components {
       color: light-dark(oklch(96% 0 0deg), oklch(25% 0 0deg));
       container-type: inline-size;
       padding-block: clamp(1rem, 2cqi, 2rem);
-      
+
       &:hover {
-        background-color: oklch(from currentcolor calc(l + 10%) c h);
+        background-color: oklch(from currentcolor l c h / 10%);
       }
     }
   }
 }`;
 
-const prompts = `Fetch https://moderncss.ai/llms.txt and use its rules for modern CSS in this new project. Apply them to all CSS you write.
+const prompts = `Set up the base styles and design tokens for this new project.
 
-Fetch https://moderncss.ai/llms.txt. Use it to style the BaseUI (successor to Radix) \`Button\` component with modern CSS that matches my site's look and feel.
+Refactor my styles to modern CSS, staying within Baseline Widely Available.
 
-Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these rules and refactor them to use modern CSS. Only apply rules that are within Baseline Widely Available.`;
+Build a pricing table for the plans page and make it responsive.`;
 ---
 
 <section class="get-started">
@@ -42,15 +42,7 @@ Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these
   <div>
     <form>
       <label for="skill-command">
-        <a href="/skill">Read the rules</a> or add the <a href="/SKILL.md"
-          >skill</a
-        >
-        <InfoPopover id="info-skill" label="What is an Agent Skill?" inline>
-          <p>
-            An <a href="https://agentskills.io">Agent Skill</a> is a set of instructions
-            for AI coding agents.
-          </p>
-        </InfoPopover>:
+        Install the <a href="/skill">skill</a>:
       </label>
       <copy-clipboard>
         <input
@@ -60,18 +52,23 @@ Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these
           readonly
         />
       </copy-clipboard>
-      <label for="llms-prompt">
-        Or fetch the <a href="/llms.txt">llms.txt</a>
-        <InfoPopover id="info-llms" label="What is llms.txt?" inline>
-          <p>
-            A <a href="https://llmstxt.org">llms.txt</a> file is another way to provide
-            instructions to LLMs.
-          </p>
-        </InfoPopover>:
+      <label for="config-command">
+        And the <a href="https://www.npmx.dev/package/stylelint-config-modern"
+          >Stylelint config</a
+        >:
       </label>
+      <copy-clipboard>
+        <input
+          id="config-command"
+          type="text"
+          value="npm i -D stylelint-config-modern"
+          readonly
+        />
+      </copy-clipboard>
+      <label for="example-prompt">Then prompt your agent:</label>
       <prompt-cycler>
         <copy-clipboard>
-          <textarea id="llms-prompt" readonly>{prompts}</textarea>
+          <textarea id="example-prompt" readonly>{prompts}</textarea>
         </copy-clipboard>
       </prompt-cycler>
     </form>
@@ -99,15 +96,14 @@ Fetch https://moderncss.ai/llms.txt. Audit my existing stylesheets against these
           <a href="/skill#organizing-styles-layer">Layers</a>, <a
             href="/skill#encapsulating-styles-scope">scope</a
           >, <a href="/skill#nesting-rules-and-at-rules-">nesting</a>, <a
-            href="/skill#perceptual-uniform-lightness-oklch">relative colors</a
+            href="/skill#relative-color-functions-oklchfrom-----color-mix-"
+            >relative colors</a
           >, and
-          <a href="/skill#container-queries-and-units-container-cqi-etc"
-            >container units</a
-          > afterwards.
+          <a href="/skill#fluid-spacing-cqi">container units</a> afterwards.
         </p>
       </InfoPopover>
       <p>
-        <small> Before & after with GPT-5.3-Codex and Claude Opus 4.6.</small>
+        <small> Before & after with Claude Opus 5.5.</small>
       </p>
     </div>
   </div>

@@ -4,6 +4,7 @@
     display: block grid;
     font-size: var(--font-size-s);
     gap: var(--length-2xs) var(--length-3xs);
+    hyphens: manual;
     margin-block-start: var(--length-l-xl);
     padding-block: var(--length-l-xl);
 
@@ -15,29 +16,44 @@
   p,
   a {
     color: var(--color-fg-muted);
-    display: block flex;
-    place-items: center;
   }
 
   p {
     margin-block: 0;
 
-    &:first-of-type {
+    &:has(svg) {
+      display: block flex;
+      gap: var(--length-3xs);
+      place-items: center;
+    }
+
+    &:nth-of-type(2) {
       gap: var(--length-2xs);
     }
 
-    &:last-of-type {
-      gap: var(--length-3xs);
+    &:not(:has(svg)) {
+      grid-column: 1 / -1;
+      margin-block-end: var(--length-xs);
+
+      @media (width > 30em) {
+        margin-inline: auto;
+        max-inline-size: 72ch;
+        text-align: center;
+      }
     }
   }
 
   a {
-    gap: var(--length-3xs);
-
     &:hover,
     &:focus-within {
       color: var(--color-fg);
     }
+  }
+
+  p:has(svg) a {
+    display: block flex;
+    gap: var(--length-3xs);
+    place-items: center;
   }
 
   svg {
