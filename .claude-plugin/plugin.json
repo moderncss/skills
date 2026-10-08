@@ -1,0 +1,6 @@
+{
+  "name": "moderncss",
+  "version": "0.1.0",
+  "description": "Opinionated rules for modern CSS, so agents and people write it consistently.",
+  "author": { "name": "jeddy3" }
+}
