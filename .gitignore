@@ -16,3 +16,6 @@ playwright-report/
 
 # IDE
 .vscode/
+
+# eval output
+evals/results/
