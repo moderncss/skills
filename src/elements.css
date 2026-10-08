@@ -256,6 +256,8 @@ textarea {
 }
 
 textarea {
+  field-sizing: content;
+  max-block-size: calc(6lh + (var(--length) * 2));
   min-block-size: calc(2lh + (var(--length) * 2));
   scrollbar-gutter: stable;
 }
