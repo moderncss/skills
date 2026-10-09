@@ -12,7 +12,7 @@ Many new CSS features landed in browsers over the past few years, including:
 - `light-dark()` for colour-scheme support
 - `clamp()` for fluid type and spacing
 
-These features help us create robust interfaces that adapt to users' devices and preferences. They replace older patterns like fixed breakpoints, which produce interfaces with seams and brittle code.
+These features help us create interfaces that adapt to users' devices and preferences. They replace older patterns like fixed breakpoints, which produce interfaces with seams and brittle code.
 
 Left alone, agents default to the outdated CSS they were trained on. The [Modern Web Guidance](https://developer.chrome.com/docs/modern-web-guidance) skill fixes that at scale.
 

@@ -1,6 +1,6 @@
 ---
 name: modern-css
-description: Apply these opinionated rules whenever CSS is written, refactored, or reviewed, so agents and people write it consistently. They sit on top of the Modern Web Guidance skill and settle the choices it leaves open across architecture, layout, typography, colors, and motion. Use this skill when the user asks things like "set up the base styles for this project", "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or "refactor my styles to modern CSS", when they ask to build a page or component, and for any other CSS task — even when they don't say "CSS".
+description: Apply these opinionated rules whenever CSS is written, refactored, or reviewed, so agents and people write it consistently. They sit on top of the Modern Web Guidance skill and settle the choices it leaves open across architecture, layout, typography, colors, and motion. Use this skill when the user asks things like "set up the base styles for this project", "style this component", "make this responsive", "add dark mode", "scope these styles", "fluid type scale", or "refactor my styles to modern CSS", when they ask to build a page or component, and for any other CSS task, even when they don't say "CSS".
 license: MIT
 compatibility: Requires the modern-web-guidance skill (npx skills add GoogleChrome/modern-web-guidance).
 metadata:
@@ -41,7 +41,7 @@ Browser support policy: features within [Baseline](https://developer.mozilla.org
 
 #### Encapsulating styles (`@scope`)
 
-- **Rule**: Use `@scope` for every component's styles, with a limit (`@scope (outer) to (inner)`) where the component hosts content it doesn't own — embedded components, slot content, or user content.
+- **Rule**: Use `@scope` for every component's styles, with a limit (`@scope (outer) to (inner)`) where the component hosts content it doesn't own: embedded components, slot content, or user content.
 - **Constraint**: Avoid component styles outside a scope, and an unlimited scope over content the component doesn't own.
 - **Rationale**: Scoped selectors can't bleed into other components, and the limit stops the outer scope's styles reaching projected content. Sometimes called donut scoping.
 - **References**: [`@scope` on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@scope).
@@ -141,7 +141,7 @@ nav {
 
 - **Rule**: Size spacing with container units (e.g. `padding: 2cqi`), clamped where it needs a floor or ceiling.
 - **Constraint**: Avoid fixed spacing (e.g. `padding-block: 16px`, `margin-inline: 1rem`).
-- **Rationale**: Spacing scales with the container, so components adapt wherever they're placed instead of at breakpoints, which leave seams.
+- **Rationale**: Spacing scales with the container, so components adapt wherever they're placed, without the seams breakpoints leave.
 - **References**: [Container query length units on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries#container_query_length_units), [Responsive design: seams & edges.](https://ethanmarcotte.com/wrote/responsive-design-seams-edges/).
 - **Example**:
 
@@ -295,9 +295,9 @@ Traps neither the rules above nor Modern Web Guidance surface:
 
 This site follows the rules:
 
-- [`src/styles.css`](https://github.com/moderncss/skills/blob/main/src/styles.css) — `@layer`
-- [`src/variables.css`](https://github.com/moderncss/skills/blob/main/src/variables.css) — `oklch()`, `light-dark()`, `clamp()`
-- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css) — `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`, two-value `display`, `field-sizing`
-- [`src/components/signpost/signpost.css`](https://github.com/moderncss/skills/blob/main/src/components/signpost/signpost.css) — `@scope`
+- [`src/styles.css`](https://github.com/moderncss/skills/blob/main/src/styles.css): `@layer`
+- [`src/variables.css`](https://github.com/moderncss/skills/blob/main/src/variables.css): `oklch()`, `light-dark()`, `clamp()`
+- [`src/elements.css`](https://github.com/moderncss/skills/blob/main/src/elements.css): `&`, `text-wrap`, `prefers-reduced-motion`, `cqi`, two-value `display`, `field-sizing`
+- [`src/components/signpost/signpost.css`](https://github.com/moderncss/skills/blob/main/src/components/signpost/signpost.css): `@scope`
 
 Fetch one only when the project has no CSS of its own to match.
