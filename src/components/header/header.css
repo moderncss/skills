@@ -20,13 +20,13 @@
       fill: var(--color-fg-strong);
 
       :scope:hover & {
-        fill: var(--purple);
+        fill: var(--color-purple);
         transition: fill var(--duration) var(--timing-function);
       }
     }
 
     &:last-of-type {
-      fill: light-dark(var(--gray-98), var(--gray-14));
+      fill: light-dark(var(--color-gray-98), var(--color-gray-14));
     }
   }
 }

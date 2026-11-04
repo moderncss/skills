@@ -2,35 +2,35 @@
   /* Colors */
 
   /* Neutral primitives */
-  --white: oklch(100% 0 0deg);
-  --gray-14: oklch(14% 0 0deg);
-  --gray-16: oklch(16% 0 0deg);
-  --gray-20: oklch(20% 0 0deg);
-  --gray-30: oklch(30% 0 0deg);
-  --gray-35: oklch(35% 0 0deg);
-  --gray-55: oklch(55% 0 0deg);
-  --gray-62: oklch(62% 0 0deg);
-  --gray-75: oklch(75% 0 0deg);
-  --gray-85: oklch(85% 0 0deg);
-  --gray-94: oklch(94% 0 0deg);
-  --gray-98: oklch(98% 0 0deg);
+  --color-white: oklch(100% 0 0deg);
+  --color-gray-14: oklch(14% 0 0deg);
+  --color-gray-16: oklch(16% 0 0deg);
+  --color-gray-20: oklch(20% 0 0deg);
+  --color-gray-30: oklch(30% 0 0deg);
+  --color-gray-35: oklch(35% 0 0deg);
+  --color-gray-55: oklch(55% 0 0deg);
+  --color-gray-62: oklch(62% 0 0deg);
+  --color-gray-75: oklch(75% 0 0deg);
+  --color-gray-85: oklch(85% 0 0deg);
+  --color-gray-94: oklch(94% 0 0deg);
+  --color-gray-98: oklch(98% 0 0deg);
 
   /* Computed primitives */
-  --pink: light-dark(oklch(55% 0.25 350deg), oklch(75% 0.18 350deg));
-  --teal: light-dark(oklch(92% 0.04 190deg), oklch(30% 0.06 195deg));
-  --purple: light-dark(oklch(44% 0.16 303deg), oklch(64% 0.12 303deg));
-  --green: light-dark(oklch(65% 0.2 145deg), oklch(85% 0.12 145deg));
+  --color-pink: light-dark(oklch(55% 0.25 350deg), oklch(75% 0.18 350deg));
+  --color-teal: light-dark(oklch(92% 0.04 190deg), oklch(30% 0.06 195deg));
+  --color-purple: light-dark(oklch(44% 0.16 303deg), oklch(64% 0.12 303deg));
+  --color-green: light-dark(oklch(65% 0.2 145deg), oklch(85% 0.12 145deg));
 
   /* Functional */
-  --color-fg: light-dark(var(--gray-35), var(--gray-75));
-  --color-fg-strong: light-dark(var(--gray-14), var(--gray-98));
-  --color-fg-muted: light-dark(var(--gray-55), var(--gray-62));
-  --color-bg: light-dark(var(--white), var(--gray-16));
-  --color-bg-secondary: light-dark(var(--gray-98), var(--gray-20));
-  --color-bg-tertiary: light-dark(var(--gray-94), var(--gray-30));
-  --color-bg-quaternary: light-dark(var(--gray-85), var(--gray-35));
-  --color-line: light-dark(var(--gray-85), var(--gray-35));
-  --color-accent: var(--pink);
+  --color-fg: light-dark(var(--color-gray-35), var(--color-gray-75));
+  --color-fg-strong: light-dark(var(--color-gray-14), var(--color-gray-98));
+  --color-fg-muted: light-dark(var(--color-gray-55), var(--color-gray-62));
+  --color-bg: light-dark(var(--color-white), var(--color-gray-16));
+  --color-bg-secondary: light-dark(var(--color-gray-98), var(--color-gray-20));
+  --color-bg-tertiary: light-dark(var(--color-gray-94), var(--color-gray-30));
+  --color-bg-quaternary: light-dark(var(--color-gray-85), var(--color-gray-35));
+  --color-line: light-dark(var(--color-gray-85), var(--color-gray-35));
+  --color-accent: var(--color-pink);
   --color-accent-strong: light-dark(
     oklch(from var(--color-accent) 45% c h),
     oklch(from var(--color-accent) 65% c h)
@@ -39,7 +39,7 @@
     oklch(from var(--color-accent) 99% 0.0038 h),
     oklch(from var(--color-accent) 30% 0.005 h)
   );
-  --color-success: var(--green);
+  --color-success: var(--color-green);
 
   /* Font sizes */
 
@@ -88,20 +88,20 @@
 
   /* Shadows */
   --shadow-s:
-    inset 0 1px 0 0 oklch(from var(--white) l c h / 20%),
-    0 1px 2px light-dark(oklch(from var(--gray-30) l c h / 15%), transparent),
-    0 2px 4px light-dark(oklch(from var(--gray-30) l c h / 5%), transparent);
+    inset 0 1px 0 0 oklch(from var(--color-white) l c h / 20%),
+    0 1px 2px light-dark(oklch(from var(--color-gray-30) l c h / 15%), transparent),
+    0 2px 4px light-dark(oklch(from var(--color-gray-30) l c h / 5%), transparent);
   --shadow:
-    inset 0 1px 0 0 oklch(from var(--white) l c h / 30%),
-    0 1px 2px light-dark(oklch(from var(--gray-30) l c h / 10%), transparent),
-    0 2px 4px light-dark(oklch(from var(--gray-30) l c h / 8%), transparent),
-    0 4px 8px light-dark(oklch(from var(--gray-30) l c h / 4%), transparent),
-    0 8px 16px light-dark(oklch(from var(--gray-30) l c h / 2%), transparent);
+    inset 0 1px 0 0 oklch(from var(--color-white) l c h / 30%),
+    0 1px 2px light-dark(oklch(from var(--color-gray-30) l c h / 10%), transparent),
+    0 2px 4px light-dark(oklch(from var(--color-gray-30) l c h / 8%), transparent),
+    0 4px 8px light-dark(oklch(from var(--color-gray-30) l c h / 4%), transparent),
+    0 8px 16px light-dark(oklch(from var(--color-gray-30) l c h / 2%), transparent);
   --shadow-l:
-    inset 0 1px 0 0 oklch(from var(--white) l c h / 30%),
-    0 1px 2px light-dark(oklch(from var(--gray-30) l c h / 10%), transparent),
-    0 2px 4px light-dark(oklch(from var(--gray-30) l c h / 8%), transparent),
-    0 4px 8px light-dark(oklch(from var(--gray-30) l c h / 6%), transparent),
-    0 8px 16px light-dark(oklch(from var(--gray-30) l c h / 4%), transparent),
-    0 16px 32px light-dark(oklch(from var(--gray-30) l c h / 3%), transparent);
+    inset 0 1px 0 0 oklch(from var(--color-white) l c h / 30%),
+    0 1px 2px light-dark(oklch(from var(--color-gray-30) l c h / 10%), transparent),
+    0 2px 4px light-dark(oklch(from var(--color-gray-30) l c h / 8%), transparent),
+    0 4px 8px light-dark(oklch(from var(--color-gray-30) l c h / 6%), transparent),
+    0 8px 16px light-dark(oklch(from var(--color-gray-30) l c h / 4%), transparent),
+    0 16px 32px light-dark(oklch(from var(--color-gray-30) l c h / 3%), transparent);
 }
