@@ -13,8 +13,8 @@
 
 :focus-visible {
   border-radius: var(--length-4xs);
-  box-shadow: 0 0 0 var(--line-length-l) var(--white);
-  outline: var(--line-length-l) solid var(--gray-14);
+  box-shadow: 0 0 0 var(--line-length-l) var(--color-white);
+  outline: var(--line-length-l) solid var(--color-gray-14);
   outline-offset: 0.125em;
 }
 
@@ -23,7 +23,7 @@
 }
 
 ::selection {
-  background-color: var(--teal);
+  background-color: var(--color-teal);
 }
 
 /* Main root */
