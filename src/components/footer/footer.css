@@ -1,15 +1,33 @@
 @scope (footer) {
   :scope {
+    align-items: start;
     border-block-start: var(--line-length) solid var(--color-line);
     display: block grid;
     font-size: var(--font-size-s);
-    gap: var(--length-2xs) var(--length-3xs);
+    gap: var(--length-s) var(--length-2xl);
     hyphens: manual;
     margin-block-start: var(--length-l-xl);
     padding-block: var(--length-l-xl);
 
-    @media (width > 30em) {
+    @media (30em < width <= 60em) {
+      justify-items: center;
+      text-align: center;
+    }
+
+    @media (width > 60em) {
       grid-template-columns: 1fr auto;
+    }
+  }
+
+  div {
+    display: block grid;
+
+    @media (30em < width <= 60em) {
+      justify-items: center;
+    }
+
+    @media (width > 60em) {
+      justify-items: end;
     }
   }
 
@@ -27,19 +45,20 @@
       place-items: center;
     }
 
+    &:has(> svg) {
+      color: var(--color-fg);
+
+      a {
+        color: inherit;
+      }
+    }
+
     &:nth-of-type(2) {
       gap: var(--length-2xs);
     }
 
     &:not(:has(svg)) {
-      grid-column: 1 / -1;
-      margin-block-end: var(--length-xs);
-
-      @media (width > 30em) {
-        margin-inline: auto;
-        max-inline-size: 72ch;
-        text-align: center;
-      }
+      max-inline-size: 72ch;
     }
   }
 
