@@ -1,0 +1,13 @@
+{
+  "name": "moderncss",
+  "description": "Opinionated rules for modern CSS, so agents and people write it consistently.",
+  "owner": { "name": "jeddy3" },
+  "plugins": [
+    {
+      "name": "moderncss",
+      "source": "./skills/modern-css",
+      "description": "Opinionated rules for modern CSS, so agents and people write it consistently.",
+      "license": "MIT"
+    }
+  ]
+}
